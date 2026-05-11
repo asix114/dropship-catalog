@@ -3,309 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ИнтимКаталог | Дропшиппинг секс-шоп — ваша наценка, ваш заработок</title>
-    <meta name="description" content="Каталог из 25 000+ товаров с настройкой наценки. Отправка от 1 шт. Работа с физлицами. Добавьте свою прибыль и продавайте!">
-    <meta name="author" content="Ваш Дропшиппинг">
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>VELORIA — Премиальный дропшиппинг</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #fdf8f5;
-            color: #1f0f1a;
-        }
-
-        /* container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* header */
-        .site-header {
-            background: linear-gradient(135deg, #241018 0%, #160a12 100%);
-            color: white;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .header-flex {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        .logo h2 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        .logo p {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        .markup-control {
-            background: rgba(255,255,255,0.12);
-            padding: 10px 20px;
-            border-radius: 60px;
-            display: flex;
-            gap: 12px;
-            align-items: baseline;
-            flex-wrap: wrap;
-        }
-        .markup-control label {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .markup-control input {
-            background: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 40px;
-            width: 80px;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1rem;
-        }
-        .markup-value {
-            font-weight: 800;
-            background: #ff7b96;
-            padding: 5px 12px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-        }
-        .contact-btn {
-            background: #c73b61;
-            padding: 10px 22px;
-            border-radius: 40px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .contact-btn:hover {
-            background: #a52e4e;
-            transform: scale(0.97);
-        }
-
-        /* поиск и фильтр */
-        .filters-panel {
-            background: white;
-            border-radius: 48px;
-            margin: 30px 0;
-            padding: 18px 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
-            border: 1px solid #ffded1;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .search-box {
-            flex: 2;
-            display: flex;
-            gap: 8px;
-            background: #f5f0ee;
-            border-radius: 60px;
-            padding: 4px 12px;
-        }
-        .search-box input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 12px 8px;
-            font-size: 1rem;
-            outline: none;
-        }
-        .category-filter select {
-            padding: 12px 20px;
-            border-radius: 60px;
-            border: 1px solid #ffcdba;
-            background: white;
-            font-weight: 500;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-        }
-        .stats {
-            font-size: 0.85rem;
-            background: #fff0e8;
-            padding: 6px 14px;
-            border-radius: 30px;
-        }
-
-        /* каталог грид */
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 28px;
-            margin: 30px 0;
-        }
-        .product-card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            transition: all 0.25s;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
-            border: 1px solid #ffe0d4;
-            display: flex;
-            flex-direction: column;
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15);
-            border-color: #ffb08c;
-        }
-        .product-img {
-            background: #faf0ea;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .product-img img {
-            max-height: 160px;
-            max-width: 100%;
-            object-fit: contain;
-        }
-        .product-info {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .product-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            height: 2.6em;
-            overflow: hidden;
-        }
-        .product-category {
-            font-size: 0.7rem;
-            color: #c45a78;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .price-block {
-            margin: 12px 0;
-        }
-        .wholesale-price {
-            font-size: 0.8rem;
-            color: #6b4c42;
-            text-decoration: line-through;
-        }
-        .retail-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #c2215b;
-        }
-        .order-trigger {
-            background: #2d1c24;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .order-trigger:hover {
-            background: #c2215b;
-        }
-        .loader, .no-products {
-            text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
-        }
-        footer {
-            background: #1e1217;
-            color: #ddd;
-            padding: 40px 0 30px;
-            margin-top: 60px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            max-width: 500px;
-            width: 90%;
-            border-radius: 48px;
-            padding: 32px;
-            position: relative;
-        }
-        .close-modal {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 28px;
-            cursor: pointer;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 60px;
-            border: 1px solid #ffbfa6;
-            font-family: 'Inter', sans-serif;
-        }
-        .form-group textarea {
-            border-radius: 28px;
-            resize: vertical;
-        }
-        .submit-btn {
-            background: #c2215b;
-            width: 100%;
-            padding: 14px;
-            border-radius: 60px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        @media (max-width: 700px) {
-            .container {
-                padding: 0 16px;
-            }
-            .header-flex {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fefaf8; color: #1a0f14; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .site-header { background: linear-gradient(135deg, #241018 0%, #160a12 100%); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
+        .header-flex { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+        .logo h2 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #e6b8cc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo p { font-size: 0.8rem; opacity: 0.8; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-links a { color: #f0e0e6; text-decoration: none; font-weight: 500; cursor: pointer; }
+        .cart-icon { position: relative; cursor: pointer; }
+        .cart-count { position: absolute; top: -8px; right: -12px; background: #c85c7e; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
+        .btn { background: linear-gradient(135deg, #c85c7e, #a23658); color: white; padding: 8px 16px; border-radius: 50px; border: none; cursor: pointer; font-weight: 600; }
+        .btn-outline { background: transparent; border: 2px solid #c85c7e; color: #c85c7e; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
+        .product-card { background: white; border-radius: 24px; padding: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s; }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-img { height: 180px; display: flex; align-items: center; justify-content: center; }
+        .product-img img { max-height: 150px; max-width: 100%; }
+        .product-price { font-size: 1.3rem; font-weight: 700; color: #c85c7e; margin: 10px 0; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; border-radius: 32px; padding: 30px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #f0dbd2; }
+        .tab { padding: 8px 20px; cursor: pointer; border-radius: 30px; }
+        .tab.active { background: #c85c7e; color: white; }
+        .admin-table { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #f0dbd2; }
+        .status-select { padding: 5px 10px; border-radius: 20px; background: #faf0ec; border: none; }
+        footer { background: #0f0c0e; color: #aa9aa2; padding: 40px 0; margin-top: 50px; text-align: center; }
+        @media (max-width: 700px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
     </style>
 </head>
 <body>
@@ -313,282 +44,357 @@
 <header class="site-header">
     <div class="container header-flex">
         <div class="logo">
-            <h2>🍑 ИнтимДроп</h2>
-            <p>Дропшиппинг от 1 шт • ваша наценка — ваша прибыль</p>
+            <h2>VELORIA</h2>
+            <p>где страсть обретает форму</p>
         </div>
-        <div class="markup-control">
-            <label><i class="fas fa-tags"></i> Ваша наценка:</label>
-            <input type="number" id="markupPercent" value="75" step="5" min="0" max="300"> %
-            <span class="markup-value" id="markupPreview">+75%</span>
+        <div class="nav-links">
+            <a onclick="showSection('catalog')">Каталог</a>
+            <a onclick="showSection('profile')">Личный кабинет</a>
+            <a onclick="showSection('admin')" id="adminLink" style="display:none;">📊 Админ CRM</a>
+            <a class="cart-icon" onclick="showCart()"><i class="fas fa-shopping-cart"></i><span id="cartCount" class="cart-count">0</span></a>
+            <a onclick="logout()" id="logoutBtn" style="display:none;">Выйти</a>
         </div>
-        <button class="contact-btn" id="openModalBtn"><i class="fab fa-telegram"></i> Связаться ❤️</button>
     </div>
 </header>
 
 <div class="container">
-    <div class="filters-panel">
-        <div class="search-box">
-            <i class="fas fa-search" style="color: #b95c78;"></i>
-            <input type="text" id="searchInput" placeholder="Поиск по названию...">
-        </div>
-        <div class="category-filter">
-            <select id="categorySelect">
-                <option value="all">📁 Все категории</option>
-            </select>
-        </div>
-        <div class="stats" id="statsDisplay">Загрузка товаров...</div>
+    <!-- Каталог -->
+    <div id="catalogSection">
+        <div class="product-grid" id="productGrid">Загрузка...</div>
     </div>
 
-    <div id="catalogContainer" class="catalog-grid">
-        <div class="loader"><i class="fas fa-spinner fa-spin"></i> Загрузка каталога 25 000+ товаров...</div>
+    <!-- Личный кабинет клиента -->
+    <div id="profileSection" style="display:none;">
+        <h2>📋 Мои заказы</h2>
+        <div id="userOrders" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Админ панель (CRM) -->
+    <div id="adminSection" style="display:none;">
+        <div class="tabs">
+            <div class="tab active" onclick="switchAdminTab('orders')">📦 Заказы</div>
+            <div class="tab" onclick="switchAdminTab('clients')">👥 Клиенты</div>
+        </div>
+        <div id="adminOrdersPanel" class="admin-table"></div>
+        <div id="adminClientsPanel" style="display:none;" class="admin-table"></div>
+    </div>
+</div>
+
+<!-- Модалка корзины -->
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <h2>🛒 Корзина</h2>
+        <div id="cartItems"></div>
+        <div id="cartTotal" style="font-weight:700; margin:15px 0;"></div>
+        <button class="btn" onclick="checkout()">Оформить заказ</button>
+        <button class="btn-outline" onclick="closeModal('cartModal')">Закрыть</button>
+    </div>
+</div>
+
+<!-- Модалка оформления заказа -->
+<div id="checkoutModal" class="modal">
+    <div class="modal-content">
+        <h2>📝 Оформление заказа</h2>
+        <input type="text" id="checkoutName" placeholder="Ваше имя" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
+        <input type="tel" id="checkoutPhone" placeholder="Телефон" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
+        <input type="text" id="checkoutAddress" placeholder="Адрес доставки" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
+        <select id="checkoutDelivery" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
+            <option value="СДЭК">СДЭК (350₽)</option>
+            <option value="Почта России">Почта России (250₽)</option>
+            <option value="Курьер МСК">Курьер по Москве (500₽)</option>
+        </select>
+        <button class="btn" onclick="submitOrder()">✅ Подтвердить заказ</button>
+        <button class="btn-outline" onclick="closeModal('checkoutModal')">Назад</button>
     </div>
 </div>
 
 <footer>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
-            <div>
-                <h4>📦 Дропшиппинг без депозитов</h4>
-                <p>Работаем с физлицами • 100% предоплата по оптовым ценам<br>Вы ставите наценку и продаёте дороже</p>
-            </div>
-            <div>
-                <h4>🚚 Доставка по всей РФ</h4>
-                <p>СДЭК, Почта, курьером. Отправка от вашего имени.</p>
-                <small>XML фид: allsextoys.ru/export/yandex_yml5_sklad4.xml</small>
-            </div>
-            <div>
-                <h4><i class="fab fa-whatsapp"></i> Связь с дропшиппером</h4>
-                <p>Нажмите "Связаться" и оформите заказ<br>WhatsApp/Telegram: +7-999-909-20-29</p>
-            </div>
-        </div>
-        <p style="margin-top: 32px; text-align: center; font-size: 0.8rem;">© 2025 Ваш дропшиппинг. Все цены оптовые, розничная цена формируется автоматически с вашей наценкой.</p>
+        <p>© 2025 VELORIA — Дропшиппинг от 1 шт. Ваша прибыль — ваша наценка.</p>
+        <p>WhatsApp менеджера: +7-933-331-57-87</p>
     </div>
 </footer>
 
-<div id="orderModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" id="closeModalBtn">&times;</span>
-        <h3 style="margin-bottom: 16px;">📩 Заказать товары</h3>
-        <p style="margin-bottom: 12px;">Отправьте список артикулов или название — я выставлю счёт с вашей наценкой.</p>
-        <form id="leadForm">
-            <div class="form-group">
-                <input type="text" id="clientName" placeholder="Ваше имя" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" id="clientPhone" placeholder="Телефон / WhatsApp" required>
-            </div>
-            <div class="form-group">
-                <textarea id="orderDetails" rows="3" placeholder="Какие товары нужны? Ссылка или название, количество..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn"><i class="fab fa-telegram"></i> Отправить заявку</button>
-        </form>
-        <p style="font-size: 0.7rem; margin-top: 16px;">Мы свяжемся с вами в течение часа для подтверждения заказа.</p>
-    </div>
-</div>
-
 <script>
-    // ------------------- ПАРСИНГ XML С ПОСТАВЩИКА ------------------
-    const XML_URL = 'http://allsextoys.ru/export/yandex_yml5_sklad4.xml';
-    let allProducts = [];      // массив товаров { id, name, category, price, picture, url, description, model }
-    let categoriesSet = new Map(); // categoryId -> categoryName
-    let currentMarkup = 75; // %
+    // ==================== ВАШ URL ИЗ GOOGLE APPS SCRIPT ====================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoZjZVQyHelOk7O4a7OKMk99cu-ILeS4xAk6IEzw-IUDwvC8JbQ-GUuDd45VF1cSz/exec';
     
-    const catalogDiv = document.getElementById('catalogContainer');
-    const searchInput = document.getElementById('searchInput');
-    const categorySelect = document.getElementById('categorySelect');
-    const statsSpan = document.getElementById('statsDisplay');
-    const markupInput = document.getElementById('markupPercent');
-    const markupPreview = document.getElementById('markupPreview');
+    // ==================== ТОВАРЫ (временные, для демо) ====================
+    const products = [
+        { id: 1, name: "Вибратор Elegance", price: 1250, image: "https://via.placeholder.com/150x150?text=VELORIA" },
+        { id: 2, name: "Смазка Silky Love 100ml", price: 450, image: "https://via.placeholder.com/150x150?text=VELORIA" },
+        { id: 3, name: "Массажер Butterfly", price: 1890, image: "https://via.placeholder.com/150x150?text=VELORIA" },
+        { id: 4, name: "Наручники Luxury", price: 890, image: "https://via.placeholder.com/150x150?text=VELORIA" },
+        { id: 5, name: "Стимулятор Pearl", price: 2340, image: "https://via.placeholder.com/150x150?text=VELORIA" },
+        { id: 6, name: "Анальная пробка Set", price: 1200, image: "https://via.placeholder.com/150x150?text=VELORIA" }
+    ];
     
-    // Функция обновления розничной цены
-    function getRetailPrice(wholesale) {
-        let priceNum = parseFloat(wholesale);
-        if (isNaN(priceNum)) return 0;
-        let retail = priceNum * (1 + currentMarkup / 100);
-        return Math.round(retail);
+    // Корзина
+    let cart = JSON.parse(localStorage.getItem('veloria_cart')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('veloria_user')) || null;
+    const ADMIN_PASSWORD = 'admin123';
+    
+    // Отображение каталога
+    function renderCatalog() {
+        const grid = document.getElementById('productGrid');
+        if(!grid) return;
+        grid.innerHTML = products.map(p => `
+            <div class="product-card">
+                <div class="product-img"><img src="${p.image}" alt="${p.name}"></div>
+                <h4>${p.name}</h4>
+                <div class="product-price">${p.price} ₽</div>
+                <button class="btn" onclick="addToCart(${p.id})">В корзину</button>
+            </div>
+        `).join('');
     }
-
-    function updateMarkupPreview() {
-        currentMarkup = parseFloat(markupInput.value);
-        if (isNaN(currentMarkup)) currentMarkup = 75;
-        markupPreview.innerText = `+${currentMarkup}%`;
-        renderProducts(allProducts);
-    }
-
-    markupInput.addEventListener('input', updateMarkupPreview);
     
-    // Рендер каталога с учетом фильтров и наценки
-    function renderProducts(productsArray) {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        const selectedCat = categorySelect.value;
+    function addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        const existing = cart.find(i => i.id === productId);
+        if(existing) existing.quantity++;
+        else cart.push({ ...product, quantity: 1 });
+        localStorage.setItem('veloria_cart', JSON.stringify(cart));
+        updateCartCount();
+        alert('Товар добавлен в корзину');
+    }
+    
+    function updateCartCount() {
+        const count = cart.reduce((s, i) => s + i.quantity, 0);
+        const cartCountSpan = document.getElementById('cartCount');
+        if(cartCountSpan) cartCountSpan.innerText = count;
+    }
+    
+    function showCart() {
+        const container = document.getElementById('cartItems');
+        if(!container) return;
+        if(!cart.length) {
+            container.innerHTML = '<p>Корзина пуста</p>';
+            document.getElementById('cartTotal').innerHTML = '';
+        } else {
+            container.innerHTML = cart.map(i => `<div class="cart-item">${i.name} x${i.quantity} = ${i.price * i.quantity}₽</div>`).join('');
+            const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+            document.getElementById('cartTotal').innerHTML = `Итого: ${total} ₽`;
+        }
+        document.getElementById('cartModal').style.display = 'flex';
+    }
+    
+    function checkout() {
+        if(!currentUser) {
+            alert('Для оформления заказа войдите или зарегистрируйтесь в личном кабинете');
+            showSection('profile');
+            return;
+        }
+        closeModal('cartModal');
+        document.getElementById('checkoutModal').style.display = 'flex';
+    }
+    
+    async function submitOrder() {
+        const name = document.getElementById('checkoutName').value;
+        const phone = document.getElementById('checkoutPhone').value;
+        const address = document.getElementById('checkoutAddress').value;
+        const delivery = document.getElementById('checkoutDelivery').value;
         
-        let filtered = productsArray.filter(p => {
-            const matchSearch = p.name.toLowerCase().includes(searchTerm) || (p.model && p.model.toLowerCase().includes(searchTerm));
-            const matchCat = (selectedCat === 'all') || (p.categoryId === selectedCat);
-            return matchSearch && matchCat;
-        });
-        
-        if (filtered.length === 0) {
-            catalogDiv.innerHTML = `<div class="no-products"><i class="fas fa-box-open"></i> Ничего не найдено 😢<br>Попробуйте другие ключевые слова</div>`;
-            statsSpan.innerText = `🔍 0 товаров`;
+        if(!name || !phone || !address) {
+            alert('Заполните все поля');
             return;
         }
         
-        statsSpan.innerText = `📦 ${filtered.length} товаров (опт + ваша наценка)`;
+        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const productsText = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+        const orderNumber = 'ORD-' + Date.now();
         
-        catalogDiv.innerHTML = filtered.map(prod => {
-            const wholesale = prod.price;
-            const retail = getRetailPrice(wholesale);
-            const imgUrl = prod.picture || 'https://via.placeholder.com/200x200?text=No+Image';
-            const catName = categoriesSet.get(prod.categoryId) || prod.categoryName || 'Товар';
-            return `
-                <div class="product-card">
-                    <div class="product-img">
-                        <img src="${imgUrl}" alt="${escapeHtml(prod.name)}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Фото+скоро'">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-category">${escapeHtml(catName)}</div>
-                        <div class="product-title">${escapeHtml(prod.name)}</div>
-                        ${prod.model ? `<div style="font-size: 0.7rem; color:#ad7a68;">${escapeHtml(prod.model)}</div>` : ''}
-                        <div class="price-block">
-                            <div class="wholesale-price">Опт: ${wholesale} ₽</div>
-                            <div class="retail-price">💰 ${retail} ₽ <span style="font-size:0.8rem;">(розница с +${currentMarkup}%)</span></div>
-                        </div>
-                        <button class="order-trigger" data-product="${escapeHtml(prod.name)} (арт:${prod.id})" data-price="${retail}">
-                            <i class="fas fa-shopping-cart"></i> Заказать у дропшиппера
-                        </button>
-                    </div>
-                </div>
-            `;
-        }).join('');
-        
-        // вешаем события на кнопки заказа
-        document.querySelectorAll('.order-trigger').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const productInfo = btn.getAttribute('data-product');
-                const price = btn.getAttribute('data-price');
-                document.getElementById('orderDetails').value = `Хочу заказать: ${productInfo} — розничная цена ${price} ₽ (с моей наценкой). Доставка?`;
-                openModal();
-            });
-        });
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-    
-    // Парсинг XML
-    async function fetchAndParseXML() {
+        // Отправляем данные в Google Таблицу
         try {
-            catalogDiv.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-spin"></i> Загрузка каталога 25 000+ товаров...</div>`;
-            const response = await fetch(XML_URL);
-            const xmlText = await response.text();
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-            
-            // парсим категории
-            const categoriesNodes = xmlDoc.querySelectorAll('category');
-            categoriesNodes.forEach(cat => {
-                const id = cat.getAttribute('id');
-                const name = cat.textContent;
-                if(id && name) categoriesSet.set(id, name);
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'order',
+                    orderNumber: orderNumber,
+                    clientName: name,
+                    clientPhone: phone,
+                    products: productsText,
+                    total: total,
+                    status: 'Новый',
+                    deliveryAddress: address,
+                    deliveryMethod: delivery
+                })
             });
             
-            // товары: каждый offer
-            const offers = xmlDoc.querySelectorAll('offer');
-            const products = [];
-            for (let offer of offers) {
-                const id = offer.getAttribute('id');
-                const priceElem = offer.querySelector('price');
-                const price = priceElem ? parseFloat(priceElem.textContent) : 0;
-                const nameElem = offer.querySelector('name');
-                let name = nameElem ? nameElem.textContent : 'Товар без названия';
-                const categoryIdElem = offer.querySelector('categoryId');
-                const categoryId = categoryIdElem ? categoryIdElem.textContent : '';
-                const pictureElem = offer.querySelector('picture');
-                let picture = pictureElem ? pictureElem.textContent : '';
-                const modelElem = offer.querySelector('model');
-                const model = modelElem ? modelElem.textContent : '';
-                const descriptionElem = offer.querySelector('description');
-                const description = descriptionElem ? descriptionElem.textContent : '';
-                
-                if(id && price > 0) {
-                    products.push({
-                        id: id,
-                        name: name,
-                        price: price,
-                        categoryId: categoryId,
-                        picture: picture,
-                        model: model,
-                        description: description
-                    });
-                }
-                // ограничим для скорости первыми 500 товарами (чтобы не висло, но можно убрать лимит)
-                // в реальности 25000 лучше с пагинацией, но для демо покажем 500 (или можно без лимита)
-                if(products.length > 800) break; // для производительности ~ 800 товаров, полный каталог работает медленно, но даем выбор
-            }
-            allProducts = products;
+            // Также сохраняем клиента
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'client',
+                    clientName: name,
+                    clientPhone: phone,
+                    clientEmail: ''
+                })
+            });
             
-            // заполнить select категорий
-            let uniqueCats = new Map();
-            for(let prod of allProducts) {
-                if(prod.categoryId && categoriesSet.has(prod.categoryId)) {
-                    uniqueCats.set(prod.categoryId, categoriesSet.get(prod.categoryId));
-                }
-            }
-            let catOptions = '<option value="all">📁 Все категории</option>';
-            for(let [id, catName] of uniqueCats.entries()) {
-                catOptions += `<option value="${id}">${escapeHtml(catName)}</option>`;
-            }
-            categorySelect.innerHTML = catOptions;
+            alert(`Заказ ${orderNumber} оформлен! Менеджер свяжется с вами.`);
+            cart = [];
+            localStorage.setItem('veloria_cart', JSON.stringify(cart));
+            updateCartCount();
+            closeModal('checkoutModal');
             
-            renderProducts(allProducts);
+            // Сохраняем пользователя в localStorage
+            if(!currentUser) {
+                currentUser = { name, phone };
+                localStorage.setItem('veloria_user', JSON.stringify(currentUser));
+                document.getElementById('logoutBtn').style.display = 'inline';
+            }
+            
         } catch(e) {
+            alert('Ошибка оформления. Заказ сохранён локально, менеджер свяжется с вами.');
             console.error(e);
-            catalogDiv.innerHTML = `<div class="no-products"><i class="fas fa-exclamation-triangle"></i> Ошибка загрузки фида. Проверьте XML доступность. <br>${e.message}</div>`;
         }
     }
     
-    // модальное окно
-    const modal = document.getElementById('orderModal');
-    const openBtn = document.getElementById('openModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    function openModal() { modal.style.display = 'flex'; }
-    function closeModal() { modal.style.display = 'none'; }
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    // Личный кабинет
+    function showUserOrders() {
+        const container = document.getElementById('userOrders');
+        if(!container) return;
+        if(!currentUser) {
+            container.innerHTML = `
+                <div style="padding:20px; text-align:center;">
+                    <h3>Вход в личный кабинет</h3>
+                    <input type="text" id="loginName" placeholder="Ваше имя" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
+                    <input type="tel" id="loginPhone" placeholder="Телефон" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
+                    <button class="btn" onclick="login()">Войти</button>
+                    <p style="margin-top:15px; font-size:0.8rem;">При первом входе вы автоматически зарегистрируетесь</p>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div style="padding:20px;">
+                    <p><strong>Имя:</strong> ${currentUser.name}</p>
+                    <p><strong>Телефон:</strong> ${currentUser.phone}</p>
+                    <hr style="margin:15px 0;">
+                    <h3>История заказов</h3>
+                    <p>Заказы будут отображаться здесь после оформления.</p>
+                    <p style="color:#888; font-size:0.8rem;">Все заказы сохраняются в Google Таблице. Для просмотра полной истории обратитесь к менеджеру.</p>
+                </div>
+            `;
+        }
+    }
     
-    // отправка формы (Telegram webhook / email эмуляция) — здесь просто открываем whatsapp/TG с готовым текстом
-    const form = document.getElementById('leadForm');
-    form.addEventListener('submit', (e) => {
+    function login() {
+        const name = document.getElementById('loginName')?.value;
+        const phone = document.getElementById('loginPhone')?.value;
+        if(name && phone) {
+            currentUser = { name, phone };
+            localStorage.setItem('veloria_user', JSON.stringify(currentUser));
+            document.getElementById('logoutBtn').style.display = 'inline';
+            showSection('profile');
+            showUserOrders();
+        } else {
+            alert('Введите имя и телефон');
+        }
+    }
+    
+    function logout() {
+        currentUser = null;
+        localStorage.removeItem('veloria_user');
+        document.getElementById('logoutBtn').style.display = 'none';
+        showSection('catalog');
+        alert('Вы вышли из личного кабинета');
+    }
+    
+    // Админ панель (CRM)
+    function showAdminLogin() {
+        const pwd = prompt('Введите пароль администратора:');
+        if(pwd === ADMIN_PASSWORD) {
+            localStorage.setItem('veloria_admin', 'true');
+            document.getElementById('adminLink').style.display = 'inline';
+            showSection('admin');
+        } else if(pwd !== null) {
+            alert('Неверный пароль');
+        }
+    }
+    
+    function showAdminPanel() {
+        // Показываем заглушку для админки
+        document.getElementById('adminOrdersPanel').innerHTML = `
+            <div style="padding:20px; text-align:center;">
+                <p>📊 Админ-панель в разработке.</p>
+                <p>Все заказы и клиенты уже сохраняются в вашу Google Таблицу:</p>
+                <p><a href="https://docs.google.com/spreadsheets/d/1EpTByX-nY09VwUc14x5N6m3A0xrFDuu8lHRSYpXb2Gs" target="_blank">📋 Открыть VELORIA CRM</a></p>
+                <p style="margin-top:20px; font-size:0.8rem;">Вы можете управлять заказами, менять статусы и отслеживать финансы прямо в таблице.</p>
+            </div>
+        `;
+        document.getElementById('adminClientsPanel').innerHTML = `
+            <div style="padding:20px; text-align:center;">
+                <p>👥 Все клиенты автоматически попадают в лист "Клиенты" вашей Google Таблицы.</p>
+                <p><a href="https://docs.google.com/spreadsheets/d/1EpTByX-nY09VwUc14x5N6m3A0xrFDuu8lHRSYpXb2Gs" target="_blank">📋 Открыть CRM</a></p>
+            </div>
+        `;
+    }
+    
+    // Навигация
+    function showSection(section) {
+        document.getElementById('catalogSection').style.display = section === 'catalog' ? 'block' : 'none';
+        document.getElementById('profileSection').style.display = section === 'profile' ? 'block' : 'none';
+        document.getElementById('adminSection').style.display = section === 'admin' ? 'block' : 'none';
+        
+        if(section === 'profile') showUserOrders();
+        if(section === 'admin') showAdminPanel();
+    }
+    
+    function switchAdminTab(tab) {
+        document.getElementById('adminOrdersPanel').style.display = tab === 'orders' ? 'block' : 'none';
+        document.getElementById('adminClientsPanel').style.display = tab === 'clients' ? 'block' : 'none';
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach((t, i) => {
+            if((tab === 'orders' && i === 0) || (tab === 'clients' && i === 1)) {
+                t.classList.add('active');
+            } else {
+                t.classList.remove('active');
+            }
+        });
+    }
+    
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    
+    // Инициализация
+    renderCatalog();
+    updateCartCount();
+    
+    // Проверяем, есть ли админский доступ
+    if(localStorage.getItem('veloria_admin') === 'true') {
+        document.getElementById('adminLink').style.display = 'inline';
+    }
+    if(currentUser) {
+        document.getElementById('logoutBtn').style.display = 'inline';
+    }
+    
+    // Привязываем функции к окну
+    window.showSection = showSection;
+    window.showCart = showCart;
+    window.addToCart = addToCart;
+    window.checkout = checkout;
+    window.submitOrder = submitOrder;
+    window.closeModal = closeModal;
+    window.switchAdminTab = switchAdminTab;
+    window.logout = logout;
+    window.login = login;
+    window.showAdminLogin = showAdminLogin;
+    
+    // Обработчик для админки (если кликнуть по ссылке)
+    document.getElementById('adminLink')?.addEventListener('click', (e) => {
         e.preventDefault();
-        const name = document.getElementById('clientName').value;
-        const phone = document.getElementById('clientPhone').value;
-        const details = document.getElementById('orderDetails').value;
-        const message = `Новая заявка на заказ!\nИмя: ${name}\nТелефон: ${phone}\nТовары/пожелания: ${details}\nНаценка: ${currentMarkup}%`;
-        // Можно отправить в Telegram бот (Вставьте свой токен/chatID) или просто предложить написать в WhatsApp
-        const whatsappUrl = `https://wa.me/79999092029?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-        alert('Заявка направлена дропшипперу! Ожидайте ответ в WhatsApp.');
-        closeModal();
-        form.reset();
+        const isAdmin = localStorage.getItem('veloria_admin');
+        if(isAdmin === 'true') {
+            showSection('admin');
+        } else {
+            showAdminLogin();
+        }
     });
-    
-    // фильтры
-    searchInput.addEventListener('input', () => renderProducts(allProducts));
-    categorySelect.addEventListener('change', () => renderProducts(allProducts));
-    
-    // Старт
-    fetchAndParseXML();
 </script>
 </body>
 </html>
