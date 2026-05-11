@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": 1001,
+      "aID": 5001,
+      "name": "Вибратор Elegance",
+      "price": 1250,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Вибраторы",
+      "stock": 15
+    },
+    {
+      "id": 1002,
+      "aID": 5002,
+      "name": "Смазка Silky Love",
+      "price": 450,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Смазки",
+      "stock": 50
+    },
+    {
+      "id": 1003,
+      "aID": 5003,
+      "name": "Массажер Butterfly",
+      "price": 1890,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Массажеры",
+      "stock": 8
+    },
+    {
+      "id": 1004,
+      "aID": 5004,
+      "name": "Наручники Luxury",
+      "price": 890,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Аксессуары",
+      "stock": 25
+    },
+    {
+      "id": 1005,
+      "aID": 5005,
+      "name": "Стимулятор Pearl",
+      "price": 2340,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Стимуляторы",
+      "stock": 6
+    },
+    {
+      "id": 1006,
+      "aID": 5006,
+      "name": "Анальная пробка Set",
+      "price": 1200,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Игрушки",
+      "stock": 12
+    },
+    {
+      "id": 1007,
+      "aID": 5007,
+      "name": "Вибратор Rabbit",
+      "price": 2100,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Вибраторы",
+      "stock": 4
+    },
+    {
+      "id": 1008,
+      "aID": 5008,
+      "name": "Безель для пениса",
+      "price": 1500,
+      "image": "https://via.placeholder.com/200x200?text=VELORIA",
+      "category": "Кольца",
+      "stock": 20
+    }
+  ]
+}
