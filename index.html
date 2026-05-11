@@ -4,56 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VELORIA — премиальный бутик</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
         .container{max-width:1400px;margin:0 auto;padding:0 30px}
-        .header{padding:20px 0;border-bottom:1px solid #ff3366;background:#0a0a0a;position:sticky;top:0;z-index:100}
-        .logo-img{height:80px;display:block;margin:0 auto}
-        .subtitle{text-align:center;font-size:12px;color:#ff3366;margin-top:5px}
-        .nav{display:flex;justify-content:center;gap:40px;margin:20px 0}
-        .nav span{cursor:pointer;font-weight:600}
-        .nav span:hover,.nav span.active{color:#ff3366}
-        .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px;margin:40px 0}
-        .product-card{background:#1a1a24;border-radius:20px;padding:20px;text-align:center}
-        .product-img{height:150px;display:flex;align-items:center;justify-content:center}
-        .product-img img{max-height:120px;max-width:100%}
-        .product-title{font-size:18px;font-weight:600;margin:15px 0 5px}
-        .product-price{font-size:24px;color:#ff3366;font-weight:700}
-        .btn-primary{background:#ff3366;border:none;width:100%;padding:12px;border-radius:40px;color:#fff;font-weight:600;cursor:pointer}
-        .btn-secondary{background:#333;border:none;width:100%;padding:10px;border-radius:40px;color:#fff;cursor:pointer;margin-top:10px}
-        .cart-icon{position:fixed;bottom:30px;right:30px;background:#ff3366;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200}
-        .cart-count{position:absolute;top:-5px;right:-5px;background:#fff;color:#ff3366;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px}
-        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:300;justify-content:center;align-items:center}
-        .modal-content{background:#1a1a24;border-radius:30px;padding:30px;max-width:500px;width:90%}
-        input,select{width:100%;padding:12px;margin:10px 0;border-radius:30px;background:#333;border:none;color:#fff}
-        .admin-table{overflow-x:auto}
+        .header{padding:20px 0 15px;border-bottom:1px solid rgba(255,51,102,0.3);background:rgba(10,10,10,0.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+        .logo-img{height:80px;display:block;margin:0 auto;cursor:pointer}
+        .subtitle{text-align:center;font-size:0.7rem;letter-spacing:4px;color:#ff3366;margin-top:5px}
+        .nav{display:flex;justify-content:center;gap:40px;margin-top:20px;flex-wrap:wrap}
+        .nav span{cursor:pointer;font-weight:500;font-size:0.9rem;transition:0.2s;padding-bottom:5px;border-bottom:2px solid transparent}
+        .nav span:hover,.nav span.active{color:#ff3366;border-bottom-color:#ff3366}
+        
+        /* Категории */
+        .categories-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:30px 0 20px}
+        .cat-btn{background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3);padding:8px 20px;border-radius:40px;cursor:pointer;transition:0.2s;font-size:0.85rem}
+        .cat-btn:hover,.cat-btn.active{background:#ff3366;color:#fff;border-color:#ff3366}
+        
+        .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px;margin:30px 0}
+        .product-card{background:rgba(30,30,40,0.6);backdrop-filter:blur(12px);border-radius:28px;padding:20px;transition:0.3s;border:1px solid rgba(255,255,255,0.08);text-align:center}
+        .product-card:hover{transform:translateY(-8px);border-color:rgba(255,51,102,0.5)}
+        .product-img{height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:15px}
+        .product-img img{max-height:140px;max-width:100%;object-fit:contain}
+        .product-title{font-size:1rem;font-weight:600;margin:8px 0}
+        .product-price{font-size:1.5rem;font-weight:800;color:#ff3366;margin:4px 0}
+        .btn-primary{background:linear-gradient(135deg,#ff3366,#cc0044);border:none;width:100%;padding:12px;border-radius:40px;color:#fff;font-weight:600;cursor:pointer;transition:0.2s}
+        .btn-primary:hover{transform:scale(0.98)}
+        .btn-secondary{background:#2a2a35;border:none;width:100%;padding:10px;border-radius:40px;color:#fff;cursor:pointer;margin-top:10px}
+        .cart-icon{position:fixed;bottom:30px;right:30px;background:linear-gradient(135deg,#ff3366,#cc0044);width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;box-shadow:0 5px 20px rgba(255,51,102,0.4)}
+        .cart-count{position:absolute;top:-5px;right:-5px;background:#fff;color:#cc0044;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(8px);z-index:300;justify-content:center;align-items:center}
+        .modal-content{background:#1a1a24;border-radius:40px;padding:30px;max-width:550px;width:90%;border:1px solid rgba(255,51,102,0.3);max-height:85vh;overflow-y:auto}
+        .modal-content h3{color:#ff3366;margin-bottom:20px}
+        input,select,textarea{width:100%;padding:12px 16px;margin:8px 0;border-radius:30px;border:1px solid #333;background:#2a2a35;color:#fff;font-size:0.9rem;outline:none}
+        .admin-table{overflow-x:auto;margin-top:20px}
         table{width:100%;border-collapse:collapse}
-        th,td{padding:10px;text-align:left;border-bottom:1px solid #333}
-        th{color:#ff3366}
-        footer{text-align:center;padding:40px;color:#666}
-        .filter-panel{background:#1a1a24;border-radius:20px;padding:20px;margin:20px 0}
+        th,td{padding:12px 10px;text-align:left;border-bottom:1px solid #333}
+        th{color:#ff3366;font-weight:600}
+        .status-select{padding:6px 12px;border-radius:20px;background:#2a2a35;color:#fff;border:1px solid #ff3366;cursor:pointer}
+        .track-input{background:#2a2a35;border:1px solid #555;padding:6px 10px;border-radius:20px;color:#fff;width:120px}
+        .profile-card{background:rgba(30,30,40,0.6);border-radius:28px;padding:30px;margin:30px 0}
+        .order-history-item{background:rgba(0,0,0,0.3);border-radius:20px;padding:15px;margin-bottom:15px;border-left:3px solid #ff3366}
+        .chat-widget{position:fixed;bottom:110px;right:30px;z-index:200}
+        .chat-toggle{background:linear-gradient(135deg,#ff3366,#cc0044);width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+        .chat-window{position:fixed;bottom:175px;right:30px;width:350px;height:500px;background:#1a1a24;border-radius:24px;display:none;flex-direction:column;overflow:hidden;border:1px solid #ff3366;z-index:201}
+        .chat-messages{flex:1;padding:15px;overflow-y:auto;background:#0f0f15}
+        .chat-input{display:flex;padding:10px;border-top:1px solid #333}
+        .chat-input input{flex:1;padding:8px;border-radius:20px;border:none;background:#2a2a35;color:#fff;margin-right:8px}
+        .chat-input button{background:#ff3366;border:none;padding:8px 15px;border-radius:20px;cursor:pointer;color:#fff}
+        .message{margin-bottom:10px;padding:8px 12px;border-radius:18px;max-width:85%;word-wrap:break-word}
+        .user-message{background:#ff3366;color:#fff;margin-left:auto}
+        .bot-message{background:#2a2a35;color:#fff}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:30px}
+        .stat-card{background:rgba(30,30,40,0.6);border-radius:20px;padding:15px;text-align:center}
+        .stat-card h4{color:#ff3366;font-size:1.8rem}
+        .filter-panel{background:rgba(30,30,40,0.6);border-radius:20px;padding:20px;margin:20px 0}
         .filter-row{display:flex;gap:15px;flex-wrap:wrap;margin:15px 0}
         .filter-row input,.filter-row select{width:auto;flex:1}
-        button{background:#ff3366;color:#fff;border:none;padding:10px 20px;border-radius:30px;cursor:pointer}
+        footer{text-align:center;padding:40px;border-top:1px solid rgba(255,255,255,0.05);margin-top:40px;color:#888;font-size:0.8rem}
+        @media(max-width:700px){.container{padding:0 20px}.nav{gap:20px}.logo-img{height:55px}.chat-window{width:300px;height:450px;right:10px}}
     </style>
 </head>
 <body>
 
-<div class="cart-icon" onclick="showCart()">
-    🛒
-    <span id="cartCount" class="cart-count">0</span>
+<div class="cart-icon" onclick="showCart()">🛒<span id="cartCount" class="cart-count">0</span></div>
+
+<div class="chat-widget">
+    <div class="chat-toggle" id="chatToggle"><i class="fas fa-robot" style="color:#fff;font-size:24px"></i></div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-messages" id="chatMessages"><div class="message bot-message">✨ Добро пожаловать в VELORIA! Я AI-консультант. Задайте вопрос о товарах, доставке или оплате.</div></div>
+        <div class="chat-input"><input type="text" id="chatInput" placeholder="Напишите вопрос..."><button onclick="sendMessage()">➤</button></div>
+    </div>
 </div>
 
 <div class="header">
     <div class="container">
-        <img src="logo.png" alt="VELORIA" class="logo-img">
+        <img src="logo.png" alt="VELORIA" class="logo-img" onclick="showAdminLogin()" style="cursor:pointer">
         <div class="subtitle">премиальный бутик</div>
         <div class="nav">
             <span class="active" onclick="switchSection('catalog')">КАТАЛОГ</span>
             <span onclick="switchSection('profile')">ЛИЧНЫЙ КАБИНЕТ</span>
-            <span onclick="showAdminLogin()">АДМИН ВХОД</span>
+            <span onclick="showAdminLogin()" id="adminLoginBtn">🔐 АДМИН ВХОД</span>
         </div>
     </div>
 </div>
@@ -61,9 +94,20 @@
 <div class="container">
     <!-- Каталог -->
     <div id="catalogSection">
-        <!-- Панель фильтров для каталога (будет видна только админу) -->
-        <div id="catalogFilters" class="filter-panel" style="display:none">
-            <h3>🔧 Фильтры фида</h3>
+        <div id="categoriesBar" class="categories-bar"></div>
+        <div class="product-grid" id="catalogGrid">Загрузка товаров...</div>
+    </div>
+
+    <!-- Личный кабинет -->
+    <div id="profileSection" style="display:none">
+        <div id="profileContent" class="profile-card"></div>
+    </div>
+
+    <!-- Админка (скрыта по умолчанию) -->
+    <div id="adminSection" style="display:none">
+        <div id="adminDashboard"></div>
+        <div id="adminFilters" class="filter-panel">
+            <h3 style="color:#ff3366">📁 Настройки фида для маркетплейсов</h3>
             <div class="filter-row">
                 <input type="text" id="filterVendors" placeholder="Производители (через запятую)">
                 <input type="number" id="filterPriceFrom" placeholder="Цена ОТ">
@@ -71,67 +115,50 @@
             </div>
             <div class="filter-row">
                 <label><input type="checkbox" id="filterZeroStock"> Обнулять остаток &lt; 3 шт</label>
-                <label><input type="checkbox" id="filterMpAllowed"> Только разрешённые для МП</label>
+                <label><input type="checkbox" id="filterMpAllowed"> Только разрешённые для МП (mpRule=1)</label>
             </div>
-            <button onclick="applyFilters()">Применить фильтры</button>
-            <button onclick="downloadFilteredCSV()">📥 Скачать отфильтрованный CSV</button>
-            <hr style="margin:15px 0">
-            <h4>🤖 DeepSeek AI Консультант</h4>
-            <input type="text" id="deepseekKey" placeholder="API ключ DeepSeek">
-            <button onclick="saveDeepSeekKey()">Сохранить ключ</button>
+            <button class="btn-primary" onclick="downloadFeed()">📥 Скачать фид для маркетплейсов</button>
+            <button class="btn-secondary" onclick="downloadVKFeed()">📥 Скачать фид для VK</button>
         </div>
-        <div class="product-grid" id="catalogGrid">Загрузка...</div>
-    </div>
-
-    <!-- Личный кабинет -->
-    <div id="profileSection" style="display:none">
-        <div id="profileContent" class="filter-panel"></div>
-    </div>
-</div>
-
-<!-- Корзина -->
-<div id="cartModal" class="modal">
-    <div class="modal-content">
-        <h3>🛒 Корзина</h3>
-        <div id="cartItems"></div>
-        <div id="cartTotal"></div>
-        <button class="btn-primary" onclick="checkout()">Оформить</button>
-        <button class="btn-secondary" onclick="closeModal('cartModal')">Закрыть</button>
+        <div id="adminOrdersPanel" class="admin-table"></div>
+        
+        <div class="filter-panel" style="margin-top:30px">
+            <h3 style="color:#ff3366">🤖 DeepSeek AI Консультант</h3>
+            <input type="text" id="deepseekKey" placeholder="API ключ DeepSeek" value="">
+            <button class="btn-primary" onclick="saveDeepSeekKey()">💾 Сохранить ключ</button>
+            
+            <h3 style="color:#ff3366; margin-top:30px">💳 Яндекс.Касса</h3>
+            <input type="text" id="yandexShopId" placeholder="Shop ID">
+            <input type="text" id="yandexSecret" placeholder="Secret key">
+            <button class="btn-primary" onclick="saveYandexSettings()">💾 Сохранить настройки</button>
+        </div>
     </div>
 </div>
 
-<!-- Оформление -->
-<div id="checkoutModal" class="modal">
-    <div class="modal-content">
-        <h3>📝 Оформление заказа</h3>
-        <input type="text" id="coName" placeholder="Имя">
-        <input type="tel" id="coPhone" placeholder="Телефон">
-        <input type="text" id="coAddress" placeholder="Адрес">
-        <button class="btn-primary" onclick="submitOrder()">Подтвердить заказ</button>
-    </div>
-</div>
-
-<!-- Логин админа -->
-<div id="adminModal" class="modal">
-    <div class="modal-content">
-        <h3>Вход в CRM</h3>
-        <input type="password" id="adminPass" placeholder="Пароль">
-        <button onclick="checkAdminLogin()">Войти</button>
-    </div>
-</div>
+<!-- Модалки -->
+<div id="cartModal" class="modal"><div class="modal-content"><h3>🛒 КОРЗИНА</h3><div id="cartItems"></div><div id="cartTotal" style="font-weight:700;margin:15px 0"></div><button class="btn-primary" onclick="checkout()">ОФОРМИТЬ</button><button class="btn-secondary" onclick="closeModal('cartModal')">ЗАКРЫТЬ</button></div></div>
+<div id="checkoutModal" class="modal"><div class="modal-content"><h3>📝 ОФОРМЛЕНИЕ ЗАКАЗА</h3><input type="text" id="coName" placeholder="Имя *" required><input type="text" id="coEmail" placeholder="Email *" required><input type="tel" id="coPhone" placeholder="Телефон"><input type="text" id="coAddress" placeholder="Адрес доставки"><select id="coDelivery"><option>СДЭК</option><option>Почта России</option><option>Курьер</option></select><div id="yandexPayBtn"></div><button class="btn-secondary" onclick="submitOrder('cash')">Наличными при получении</button><button class="btn-secondary" onclick="closeModal('checkoutModal')">ОТМЕНА</button></div></div>
+<div id="adminLoginModal" class="modal"><div class="modal-content"><h3>🔐 Вход в CRM</h3><input type="password" id="adminPassword" placeholder="Пароль"><button class="btn-primary" onclick="checkAdminLogin()">ВОЙТИ</button><button class="btn-secondary" onclick="closeModal('adminLoginModal')">ОТМЕНА</button></div></div>
+<div id="registerModal" class="modal"><div class="modal-content"><h3>📝 РЕГИСТРАЦИЯ</h3><input type="text" id="regName" placeholder="Имя"><input type="email" id="regEmail" placeholder="Email"><input type="password" id="regPassword" placeholder="Пароль"><button class="btn-primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button><button class="btn-secondary" onclick="closeModal('registerModal')">ОТМЕНА</button></div></div>
+<div id="loginModal" class="modal"><div class="modal-content"><h3>🔐 ВХОД</h3><input type="email" id="loginEmail" placeholder="Email"><input type="password" id="loginPassword" placeholder="Пароль"><button class="btn-primary" onclick="login()">ВОЙТИ</button><button class="btn-secondary" onclick="closeModal('loginModal')">ОТМЕНА</button></div></div>
 
 <footer>© 2025 VELORIA — премиальный бутик</footer>
 
 <script>
 // ========== ДАННЫЕ ==========
 let products = [];
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let currentUser = JSON.parse(localStorage.getItem('user')) || null;
-let allOrders = JSON.parse(localStorage.getItem('orders')) || [];
-let isAdmin = false;
-let currentMarkup = 100; // наценка 100%
+let categories = new Set();
+let cart = JSON.parse(localStorage.getItem('veloria_cart')) || [];
+let currentUser = JSON.parse(localStorage.getItem('veloria_user')) || null;
+let allOrders = JSON.parse(localStorage.getItem('veloria_orders')) || [];
+let deepseekApiKey = localStorage.getItem('veloria_deepseek_key') || '';
+let yandexShopId = localStorage.getItem('veloria_yandex_shop_id') || '';
+let yandexSecret = localStorage.getItem('veloria_yandex_secret') || '';
+let isAdminLoggedIn = false;
+let currentMarkup = 100;
+let currentCategory = 'все';
 
-// ========== ЗАГРУЗКА CSV ==========
+// ========== ЗАГРУЗКА ТОВАРОВ ИЗ CSV ==========
 async function loadProducts() {
     try {
         const response = await fetch('велория.csv');
@@ -140,54 +167,84 @@ async function loadProducts() {
         const headers = lines[0].split(';').map(h => h.replace(/["']/g, '').trim());
         
         products = [];
+        categories.clear();
+        categories.add('все');
+        
         for (let i = 1; i < lines.length; i++) {
             const values = lines[i].split(';');
             if (values.length < 3) continue;
             const product = {};
             headers.forEach((h, idx) => { product[h] = values[idx]?.replace(/["']/g, '').trim(); });
             
-            // Определяем оптовую цену
-            let wholesale = parseFloat(product.wholePrice || product.baseWholePrice || product.price || 0);
+            const wholesale = parseFloat(product.wholePrice || product.baseWholePrice || 0);
             if (wholesale > 0) {
                 product.wholesale = wholesale;
                 product.retailPrice = Math.round(wholesale * (1 + currentMarkup / 100));
+                
+                // Определяем категорию
+                let cat = product.catPath || product.categoryPath || product.category || 'Другое';
+                if (cat.includes('/')) cat = cat.split('/')[0];
+                product.category = cat;
+                categories.add(cat);
+                
                 products.push(product);
             }
         }
         
+        renderCategories();
         renderCatalog();
         updateCartCount();
     } catch(e) {
         console.error('Ошибка загрузки CSV:', e);
-        document.getElementById('catalogGrid').innerHTML = '<p>Ошибка загрузки товаров. Проверьте файл велория.csv</p>';
+        document.getElementById('catalogGrid').innerHTML = '<p>Ошибка загрузки. Убедитесь, что файл "велория.csv" находится в той же папке.</p>';
     }
+}
+
+function renderCategories() {
+    const bar = document.getElementById('categoriesBar');
+    bar.innerHTML = Array.from(categories).map(cat => `
+        <span class="cat-btn ${currentCategory === cat ? 'active' : ''}" onclick="filterByCategory('${cat}')">${cat}</span>
+    `).join('');
+}
+
+function filterByCategory(cat) {
+    currentCategory = cat;
+    renderCategories();
+    renderCatalog();
 }
 
 function renderCatalog() {
     const grid = document.getElementById('catalogGrid');
-    if (!products.length) {
-        grid.innerHTML = '<p>Нет товаров</p>';
+    let filtered = products;
+    
+    if (currentCategory !== 'все') {
+        filtered = products.filter(p => p.category === currentCategory);
+    }
+    
+    if (!filtered.length) {
+        grid.innerHTML = '<p>Товаров в этой категории нет</p>';
         return;
     }
     
-    grid.innerHTML = products.map(p => `
+    grid.innerHTML = filtered.map(p => `
         <div class="product-card">
             <div class="product-img"><img src="${p.images?.split(' ')[0] || 'заглушка.jpg'}" onerror="this.src='заглушка.jpg'"></div>
             <div class="product-title">${p.productName || p.name || 'Товар'}</div>
-            <div class="product-price">${p.retailPrice} ₽</div>
-            <button class="btn-primary" onclick="addToCart('${p.aID || p.id}')">В КОРЗИНУ</button>
+            <div class="product-price">${Math.round(p.retailPrice)} ₽</div>
+            <button class="btn-primary" onclick="addToCart('${p.aID || p.id || p.Артикул}')">В КОРЗИНУ</button>
         </div>
     `).join('');
 }
 
 function addToCart(id) {
-    const p = products.find(p => (p.aID || p.id) == id);
+    const p = products.find(p => (p.aID || p.id || p.Артикул) == id);
     if (!p) return;
     const existing = cart.find(i => i.id == id);
     if (existing) existing.quantity++;
-    else cart.push({ id: id, name: p.productName || p.name, price: p.retailPrice, quantity: 1 });
-    localStorage.setItem('cart', JSON.stringify(cart));
+    else cart.push({ id, name: p.productName || p.name, price: p.retailPrice, quantity: 1 });
+    localStorage.setItem('veloria_cart', JSON.stringify(cart));
     updateCartCount();
+    alert(`✅ ${p.productName} добавлен в корзину`);
 }
 
 function updateCartCount() {
@@ -201,169 +258,228 @@ function showCart() {
         document.getElementById('cartTotal').innerHTML = '';
     } else {
         container.innerHTML = cart.map(i => `<div>${i.name} x${i.quantity} = ${i.price * i.quantity}₽</div>`).join('');
-        document.getElementById('cartTotal').innerHTML = `<strong>Итого: ${cart.reduce((s,i) => s + i.price * i.quantity, 0)} ₽</strong>`;
+        document.getElementById('cartTotal').innerHTML = `Итого: ${cart.reduce((s,i) => s + i.price * i.quantity, 0)} ₽`;
     }
     document.getElementById('cartModal').style.display = 'flex';
 }
 
 function checkout() {
     if (!currentUser) {
-        alert('Войдите в личный кабинет');
-        switchSection('profile');
+        alert('Войдите или зарегистрируйтесь');
+        showAuthModal();
         return;
     }
     closeModal('cartModal');
     document.getElementById('checkoutModal').style.display = 'flex';
 }
 
-function submitOrder() {
+function showAuthModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+}
+
+async function submitOrder(paymentMethod) {
     const name = document.getElementById('coName').value;
+    const email = document.getElementById('coEmail').value;
     const phone = document.getElementById('coPhone').value;
     const address = document.getElementById('coAddress').value;
-    if (!name || !phone || !address) {
-        alert('Заполните все поля');
+    const delivery = document.getElementById('coDelivery').value;
+    
+    if (!name || !email) {
+        alert('Заполните имя и email');
         return;
     }
     
     const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
-    const order = {
-        number: 'ORD-' + Date.now(),
+    const productsList = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+    const orderNumber = 'ORD-' + Date.now();
+    
+    const newOrder = {
+        number: orderNumber,
         clientName: name,
+        clientEmail: email,
         clientPhone: phone,
-        address: address,
-        products: cart.map(i => `${i.name} x${i.quantity}`).join(', '),
+        products: productsList,
         total: total,
         status: '🟡 Новый',
-        date: new Date().toLocaleString()
+        tracking: '',
+        delivery: delivery,
+        address: address,
+        date: new Date().toLocaleString('ru-RU')
     };
     
-    allOrders.unshift(order);
-    localStorage.setItem('orders', JSON.stringify(allOrders));
+    allOrders.unshift(newOrder);
+    localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
     
     if (!currentUser) {
-        currentUser = { name: name, phone: phone };
-        localStorage.setItem('user', JSON.stringify(currentUser));
+        currentUser = { name, email, phone };
+        localStorage.setItem('veloria_user', JSON.stringify(currentUser));
     }
     
+    alert(`✅ Заказ ${orderNumber} оформлен!`);
     cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('veloria_cart', JSON.stringify(cart));
     updateCartCount();
     closeModal('checkoutModal');
-    alert(`Заказ ${order.number} оформлен!`);
+    if (document.getElementById('profileSection').style.display === 'block') renderProfile();
+    if (isAdminLoggedIn) renderAdminOrders();
 }
 
 function renderProfile() {
     const container = document.getElementById('profileContent');
     if (!currentUser) {
         container.innerHTML = `
-            <h3>Личный кабинет</h3>
-            <input type="text" id="regName" placeholder="Имя">
-            <input type="tel" id="regPhone" placeholder="Телефон">
-            <button class="btn-primary" onclick="register()">Войти</button>
+            <h3 style="color:#ff3366">👤 Личный кабинет</h3>
+            <button class="btn-primary" onclick="showAuthModal()">ВОЙТИ</button>
+            <button class="btn-secondary" onclick="document.getElementById('registerModal').style.display='flex'">ЗАРЕГИСТРИРОВАТЬСЯ</button>
         `;
     } else {
-        const userOrders = allOrders.filter(o => o.clientPhone === currentUser.phone);
+        const userOrders = allOrders.filter(o => o.clientEmail === currentUser.email);
         container.innerHTML = `
-            <h3>👤 ${currentUser.name}</h3>
-            <p>📞 ${currentUser.phone}</p>
-            <hr>
-            <h4>История заказов</h4>
-            ${userOrders.map(o => `
-                <div style="background:#333; padding:10px; margin:10px 0; border-radius:10px">
-                    <strong>${o.number}</strong><br>
-                    ${o.products}<br>
-                    ${o.total} ₽ | ${o.status}<br>
+            <h3 style="color:#ff3366">👤 ${currentUser.name}</h3>
+            <p>📧 ${currentUser.email}</p>
+            <hr style="margin:20px 0">
+            <h4>📦 История заказов (${userOrders.length})</h4>
+            ${userOrders.length ? userOrders.map(o => `
+                <div class="order-history-item">
+                    <strong>${o.number}</strong>
+                    <p>${o.products}</p>
+                    <p>💰 ${o.total} ₽ | 🚚 ${o.delivery}</p>
+                    <p>Статус: ${o.status}</p>
+                    ${o.tracking ? `<p>📮 Трек: ${o.tracking}</p>` : ''}
                     <small>${o.date}</small>
                 </div>
-            `).join('')}
-            <button class="btn-secondary" onclick="logout()">Выйти</button>
+            `).join('') : '<p>У вас пока нет заказов</p>'}
+            <button class="btn-secondary" onclick="logout()">🚪 ВЫЙТИ</button>
         `;
     }
 }
 
 function register() {
     const name = document.getElementById('regName').value;
-    const phone = document.getElementById('regPhone').value;
-    if (name && phone) {
-        currentUser = { name, phone };
-        localStorage.setItem('user', JSON.stringify(currentUser));
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+    if (name && email && password) {
+        currentUser = { name, email, password };
+        localStorage.setItem('veloria_user', JSON.stringify(currentUser));
+        closeModal('registerModal');
         renderProfile();
+        alert('Регистрация успешна!');
+    } else {
+        alert('Заполните все поля');
+    }
+}
+
+function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const stored = JSON.parse(localStorage.getItem('veloria_user'));
+    if (stored && stored.email === email && stored.password === password) {
+        currentUser = stored;
+        localStorage.setItem('veloria_user', JSON.stringify(currentUser));
+        closeModal('loginModal');
+        renderProfile();
+        alert('Вход выполнен');
+    } else {
+        alert('Неверный email или пароль');
     }
 }
 
 function logout() {
     currentUser = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem('veloria_user');
     renderProfile();
-    switchSection('catalog');
 }
 
 // ========== АДМИНКА ==========
 function showAdminLogin() {
-    document.getElementById('adminModal').style.display = 'flex';
+    document.getElementById('adminLoginModal').style.display = 'flex';
 }
 
 function checkAdminLogin() {
-    const pass = document.getElementById('adminPass').value;
+    const pass = document.getElementById('adminPassword').value;
     if (pass === 'admin123') {
-        isAdmin = true;
-        closeModal('adminModal');
-        document.getElementById('catalogFilters').style.display = 'block';
-        alert('Добро пожаловать в CRM!');
+        isAdminLoggedIn = true;
+        closeModal('adminLoginModal');
+        document.getElementById('adminLoginBtn').style.display = 'none';
+        switchSection('admin');
+        renderAdminDashboard();
+        renderAdminOrders();
+        loadFilterSettings();
     } else {
         alert('Неверный пароль');
     }
 }
 
-// Фильтрация товаров
-function applyFilters() {
-    const vendors = document.getElementById('filterVendors').value.split(',').map(v => v.trim().toLowerCase()).filter(v => v);
-    const priceFrom = parseFloat(document.getElementById('filterPriceFrom').value) || 0;
-    const priceTo = parseFloat(document.getElementById('filterPriceTo').value) || 999999;
-    const zeroStock = document.getElementById('filterZeroStock').checked;
-    const mpAllowed = document.getElementById('filterMpAllowed').checked;
+function renderAdminDashboard() {
+    const totalOrders = allOrders.length;
+    const totalRevenue = allOrders.reduce((sum, o) => sum + o.total, 0);
+    const newOrders = allOrders.filter(o => o.status === '🟡 Новый').length;
     
-    let filtered = [...products];
-    
-    if (vendors.length) {
-        filtered = filtered.filter(p => vendors.some(v => (p.vendor || '').toLowerCase().includes(v)));
-    }
-    
-    filtered = filtered.filter(p => p.wholesale >= priceFrom && p.wholesale <= priceTo);
-    
-    if (zeroStock) {
-        filtered = filtered.filter(p => parseInt(p.stock || p.p5sStock || 0) >= 3);
-    }
-    
-    if (mpAllowed) {
-        filtered = filtered.filter(p => p.mpRule === '1');
-    }
-    
-    // Обновляем отображение
-    const grid = document.getElementById('catalogGrid');
-    if (!filtered.length) {
-        grid.innerHTML = '<p>Нет товаров по выбранным фильтрам</p>';
-        return;
-    }
-    
-    grid.innerHTML = filtered.map(p => `
-        <div class="product-card">
-            <div class="product-img"><img src="${p.images?.split(' ')[0] || 'заглушка.jpg'}" onerror="this.src='заглушка.jpg'"></div>
-            <div class="product-title">${p.productName || p.name}</div>
-            <div class="product-price">${Math.round(p.wholesale * (1 + currentMarkup/100))} ₽</div>
-            <button class="btn-primary" onclick="addToCart('${p.aID || p.id}')">В КОРЗИНУ</button>
+    document.getElementById('adminDashboard').innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card"><h4>${totalOrders}</h4><p>Всего заказов</p></div>
+            <div class="stat-card"><h4>${totalRevenue} ₽</h4><p>Выручка</p></div>
+            <div class="stat-card"><h4>${newOrders}</h4><p>Новых заказов</p></div>
+            <div class="stat-card"><h4>${products.length}</h4><p>Товаров</p></div>
         </div>
-    `).join('');
+    `;
 }
 
-function downloadFilteredCSV() {
+function renderAdminOrders() {
+    const container = document.getElementById('adminOrdersPanel');
+    if (!allOrders.length) {
+        container.innerHTML = '<p>Заказов пока нет</p>';
+    } else {
+        container.innerHTML = `
+            <h3 style="color:#ff3366">📋 Управление заказами</h3>
+            <div class="admin-table">
+                <table>
+                    <thead><tr><th>№</th><th>Клиент</th><th>Товары</th><th>Сумма</th><th>Статус</th><th>Трек</th><th></th></tr></thead>
+                    <tbody>
+                        ${allOrders.map((o, idx) => `
+                            <tr>
+                                <td>${o.number}<br><small>${o.date}</small></td>
+                                <td>${o.clientName}<br><small>${o.clientEmail}</small></td>
+                                <td style="max-width:200px">${o.products}</td>
+                                <td>${o.total} ₽</td>
+                                <td><select class="status-select" onchange="updateOrderStatus(${idx},this.value)">
+                                    <option ${o.status === '🟡 Новый' ? 'selected' : ''}>🟡 Новый</option>
+                                    <option ${o.status === '🟢 Оплачен' ? 'selected' : ''}>🟢 Оплачен</option>
+                                    <option ${o.status === '📦 Отправлен' ? 'selected' : ''}>📦 Отправлен</option>
+                                    <option ${o.status === '✅ Доставлен' ? 'selected' : ''}>✅ Доставлен</option>
+                                </select></td>
+                                <td><input type="text" class="track-input" id="track_${idx}" value="${o.tracking || ''}" placeholder="Трек"></td>
+                                <td><button class="btn-primary" style="padding:6px 12px" onclick="saveTracking(${idx})">💾</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+}
+
+function updateOrderStatus(idx, status) {
+    allOrders[idx].status = status;
+    localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
+    renderAdminOrders();
+}
+
+function saveTracking(idx) {
+    allOrders[idx].tracking = document.getElementById(`track_${idx}`).value;
+    localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
+    alert('Трек сохранён');
+}
+
+// ========== ФИД ДЛЯ МАРКЕТПЛЕЙСОВ ==========
+function downloadFeed() {
+    let filtered = [...products];
+    
     const vendors = document.getElementById('filterVendors').value.split(',').map(v => v.trim().toLowerCase()).filter(v => v);
     const priceFrom = parseFloat(document.getElementById('filterPriceFrom').value) || 0;
-    const priceTo = parseFloat(document.getElementById('filterPriceTo').value) || 999999;
+    const priceTo = parseFloat(document.getElementById('filterPriceTo').value) || 9999999;
     const zeroStock = document.getElementById('filterZeroStock').checked;
     const mpAllowed = document.getElementById('filterMpAllowed').checked;
-    
-    let filtered = [...products];
     
     if (vendors.length) {
         filtered = filtered.filter(p => vendors.some(v => (p.vendor || '').toLowerCase().includes(v)));
@@ -373,44 +489,195 @@ function downloadFilteredCSV() {
     if (mpAllowed) filtered = filtered.filter(p => p.mpRule === '1');
     
     if (!filtered.length) {
-        alert('Нет товаров для выгрузки');
+        alert('Нет товаров по заданным фильтрам');
         return;
     }
     
-    const headers = ['aID', 'productName', 'vendor', 'wholePrice', 'stock', 'images', 'description'];
+    const headers = ['aID', 'productName', 'vendor', 'wholePrice', 'retailPrice', 'stock', 'images', 'description', 'categoryPath', 'mpRule'];
     const csvRows = [headers.join(';')];
     
     for (const p of filtered) {
-        const row = headers.map(h => p[h] || '').join(';');
+        const row = headers.map(h => {
+            let val = p[h] || '';
+            if (typeof val === 'string' && (val.includes(';') || val.includes('"'))) {
+                val = `"${val.replace(/"/g, '""')}"`;
+            }
+            return val;
+        }).join(';');
+        csvRows.push(row);
+    }
+    
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `veloria_feed_${new Date().toISOString().slice(0,19)}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    alert(`✅ Скачано ${filtered.length} товаров`);
+}
+
+function downloadVKFeed() {
+    let filtered = [...products];
+    const vendors = document.getElementById('filterVendors').value.split(',').map(v => v.trim().toLowerCase()).filter(v => v);
+    
+    if (vendors.length) {
+        filtered = filtered.filter(p => vendors.some(v => (p.vendor || '').toLowerCase().includes(v)));
+    }
+    
+    const headers = ['name', 'price', 'photo', 'description'];
+    const csvRows = [headers.join(';')];
+    
+    for (const p of filtered) {
+        const row = [
+            p.productName || p.name,
+            p.retailPrice,
+            p.images?.split(' ')[0] || '',
+            (p.description || '').slice(0, 500)
+        ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(';');
         csvRows.push(row);
     }
     
     const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'veloria_filtered.csv';
+    link.download = `vk_feed_${new Date().toISOString().slice(0,19)}.csv`;
     link.click();
-    URL.revokeObjectURL(link.href);
+    alert(`✅ Скачано ${filtered.length} товаров для VK`);
+}
+
+function saveFilterSettings() {
+    const filters = {
+        vendors: document.getElementById('filterVendors').value,
+        priceFrom: document.getElementById('filterPriceFrom').value,
+        priceTo: document.getElementById('filterPriceTo').value,
+        zeroStock: document.getElementById('filterZeroStock').checked,
+        mpAllowed: document.getElementById('filterMpAllowed').checked
+    };
+    localStorage.setItem('veloria_feed_filters', JSON.stringify(filters));
+    alert('Настройки фида сохранены');
+}
+
+function loadFilterSettings() {
+    const saved = localStorage.getItem('veloria_feed_filters');
+    if (saved) {
+        const f = JSON.parse(saved);
+        document.getElementById('filterVendors').value = f.vendors || '';
+        document.getElementById('filterPriceFrom').value = f.priceFrom || '';
+        document.getElementById('filterPriceTo').value = f.priceTo || '';
+        document.getElementById('filterZeroStock').checked = f.zeroStock || false;
+        document.getElementById('filterMpAllowed').checked = f.mpAllowed || false;
+    }
 }
 
 function saveDeepSeekKey() {
-    const key = document.getElementById('deepseekKey').value;
-    if (key) localStorage.setItem('deepseek_key', key);
-    alert('Ключ сохранён');
+    deepseekApiKey = document.getElementById('deepseekKey').value;
+    localStorage.setItem('veloria_deepseek_key', deepseekApiKey);
+    alert('Ключ DeepSeek сохранён');
+}
+
+function saveYandexSettings() {
+    yandexShopId = document.getElementById('yandexShopId').value;
+    yandexSecret = document.getElementById('yandexSecret').value;
+    localStorage.setItem('veloria_yandex_shop_id', yandexShopId);
+    localStorage.setItem('veloria_yandex_secret', yandexSecret);
+    alert('Настройки Яндекс.Кассы сохранены');
+}
+
+// ========== CHAT ==========
+const chatToggle = document.getElementById('chatToggle');
+const chatWindow = document.getElementById('chatWindow');
+
+chatToggle.onclick = () => {
+    chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+};
+
+function addMessage(text, isUser) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    msgDiv.innerText = text;
+    document.getElementById('chatMessages').appendChild(msgDiv);
+    msgDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const q = input.value.trim();
+    if (!q) return;
+    addMessage(q, true);
+    input.value = '';
+    
+    if (!deepseekApiKey) {
+        addMessage('⚠️ Ключ DeepSeek не настроен. Вставьте его в админ-панели.', false);
+        return;
+    }
+    
+    addMessage('🤔 Думаю...', false);
+    const lastMsg = document.querySelector('#chatMessages .message:last-child');
+    
+    try {
+        const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${deepseekApiKey}`
+            },
+            body: JSON.stringify({
+                model: 'deepseek-chat',
+                messages: [{ role: 'user', content: q }],
+                temperature: 0.7
+            })
+        });
+        const data = await res.json();
+        lastMsg.innerText = data.choices?.[0]?.message?.content || 'Ошибка';
+    } catch(e) {
+        lastMsg.innerText = 'Ошибка соединения';
+    }
+}
+
+// ========== НАВИГАЦИЯ ==========
+function switchSection(section) {
+    document.getElementById('catalogSection').style.display = section === 'catalog' ? 'block' : 'none';
+    document.getElementById('profileSection').style.display = section === 'profile' ? 'block' : 'none';
+    document.getElementById('adminSection').style.display = section === 'admin' ? 'block' : 'none';
+    
+    if (section === 'profile') renderProfile();
+    if (section === 'admin' && isAdminLoggedIn) {
+        renderAdminDashboard();
+        renderAdminOrders();
+        loadFilterSettings();
+        document.getElementById('deepseekKey').value = deepseekApiKey;
+        document.getElementById('yandexShopId').value = yandexShopId;
+        document.getElementById('yandexSecret').value = yandexSecret;
+    }
 }
 
 function closeModal(id) {
     document.getElementById(id).style.display = 'none';
 }
 
-function switchSection(section) {
-    document.getElementById('catalogSection').style.display = section === 'catalog' ? 'block' : 'none';
-    document.getElementById('profileSection').style.display = section === 'profile' ? 'block' : 'none';
-    if (section === 'profile') renderProfile();
-}
-
-// Запуск
+// ========== ЗАПУСК ==========
 loadProducts();
+
+window.switchSection = switchSection;
+window.addToCart = addToCart;
+window.showCart = showCart;
+window.checkout = checkout;
+window.submitOrder = submitOrder;
+window.closeModal = closeModal;
+window.register = register;
+window.login = login;
+window.logout = logout;
+window.showAdminLogin = showAdminLogin;
+window.checkAdminLogin = checkAdminLogin;
+window.updateOrderStatus = updateOrderStatus;
+window.saveTracking = saveTracking;
+window.downloadFeed = downloadFeed;
+window.downloadVKFeed = downloadVKFeed;
+window.saveDeepSeekKey = saveDeepSeekKey;
+window.saveYandexSettings = saveYandexSettings;
+window.sendMessage = sendMessage;
+window.filterByCategory = filterByCategory;
+window.showAuthModal = showAuthModal;
 </script>
 </body>
 </html>
