@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORIA — CRM админка</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
+        .container{max-width:1400px;margin:0 auto;padding:0 30px}
+        .header{padding:20px 0;border-bottom:1px solid #ff3366}
+        .logo-img{height:60px}
+        .tabs{display:flex;gap:10px;margin:30px 0;flex-wrap:wrap}
+        .tab{background:#1a1a24;padding:12px 24px;border-radius:40px;cursor:pointer}
+        .tab.active{background:#ff3366;color:#fff}
+        .tab-content{display:none}
+        .tab-content.active{display:block}
+        .card{background:#1a1a24;border-radius:20px;padding:25px;margin:20px 0}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:20px 0}
+        .stat-card{background:#0a0a0a;border-radius:20px;padding:20px;text-align:center}
+        .stat-card h2{color:#ff3366;font-size:32px}
+        input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:30px;background:#333;border:none;color:#fff}
+        .btn-primary{background:#ff3366;border:none;padding:12px 24px;border-radius:40px;color:#fff;cursor:pointer}
+        .btn-secondary{background:#333;border:none;padding:10px 20px;border-radius:40px;color:#fff;cursor:pointer}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:12px;text-align:left;border-bottom:1px solid #333}
+        th{color:#ff3366}
+        .status-select{padding:6px;border-radius:20px;background:#333;color:#fff;border:1px solid #ff3366}
+        .track-input{padding:6px;border-radius:20px;background:#333;color:#fff;width:120px}
+        footer{text-align:center;padding:40px;color:#666}
+        hr{margin:20px 0;border-color:#333}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <img src="logo.png" alt="VELORIA" class="logo-img" onerror="this.style.display='none'">
+        <div class="subtitle" style="color:#ff3366;font-size:12px">CRM АДМИНКА</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('dashboard')">🏠 Главная</div>
+        <div class="tab" onclick="showTab('orders')">📦 Заказы</div>
+        <div class="tab" onclick="showTab('deepseek')">🤖 DeepSeek</div>
+        <div class="tab" onclick="showTab('feed')">📁 Фид</div>
+        <div class="tab" onclick="showTab('gateway')">💳 Шлюз</div>
+    </div>
+
+    <div id="dashboard" class="tab-content active">
+        <div class="stats-grid" id="stats"></div>
+        <div class="card">
+            <h3 style="color:#ff3366">💰 Наценка</h3>
+            <input type="number" id="markupInput" value="100" step="10">
+            <button class="btn-primary" onclick="saveMarkup()">Сохранить наценку</button>
+        </div>
+    </div>
+
+    <div id="orders" class="tab-content">
+        <div class="card">
+            <h3 style="color:#ff3366">📋 Все заказы</h3>
+            <div id="ordersTable" style="overflow-x:auto">Загрузка...</div>
+        </div>
+    </div>
+
+    <div id="deepseek" class="tab-content">
+        <div class="card">
+            <h3 style="color:#ff3366">🤖 DeepSeek API</h3>
+            <input type="text" id="deepseekKey" placeholder="API ключ">
+            <button class="btn-primary" onclick="saveDeepSeekKey()">Сохранить ключ</button>
+        </div>
+    </div>
+
+    <div id="feed" class="tab-content">
+        <div class="card">
+            <h3 style="color:#ff3366">📁 Загрузка CSV</h3>
+            <input type="file" id="csvFile" accept=".csv">
+            <button class="btn-primary" onclick="uploadCSV()">Загрузить товары</button>
+            <hr>
+            <h3 style="color:#ff3366">🔧 Фильтры фида</h3>
+            <input type="text" id="filterVendors" placeholder="Производители (через запятую)">
+            <input type="number" id="filterPriceFrom" placeholder="Цена ОТ">
+            <input type="number" id="filterPriceTo" placeholder="Цена ДО">
+            <label><input type="checkbox" id="filterZeroStock"> Обнулять остаток &lt; 3 шт</label>
+            <label><input type="checkbox" id="filterMpAllowed"> Только mpRule=1</label>
+            <button class="btn-primary" onclick="downloadFeed()">📥 Скачать фид CSV</button>
+        </div>
+    </div>
+
+    <div id="gateway" class="tab-content">
+        <div class="card">
+            <h3 style="color:#ff3366">💳 Настройки оплаты</h3>
+            <input type="text" id="phoneNumber" value="89233720975" placeholder="Номер телефона">
+            <button class="btn-primary" onclick="savePhoneNumber()">Сохранить</button>
+            <p style="margin-top:20px;color:#888">Тинькофф Банк — карта дочери</p>
+        </div>
+    </div>
+</div>
+
+<footer>© 2025 VELORIA — премиальный бутик</footer>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyd7V0uxXYhtyWCN0_bJdMqWGjKzIToOsw3uYjJ2Id2HxQbmYCOb-cG15eVr4kDO0qw/exec';
+
+let allOrders = [];
+let allProducts = [];
+let currentMarkup = 100;
+
+async function loadData() {
+    await loadOrders();
+    await loadSettings();
+    renderStats();
+    renderOrdersTable();
+}
+
+async function loadOrders() {
+    const res = await fetch(`${SCRIPT_URL}?action=getOrders`);
+    const data = await res.json();
+    if (data.status === 'success') allOrders = data.data;
+}
+
+async function loadSettings() {
+    const res = await fetch(`${SCRIPT_URL}?action=getSettings`);
+    const data = await res.json();
+    if (data.status === 'success') {
+        currentMarkup = parseInt(data.data.markup) || 100;
+        document.getElementById('markupInput').value = currentMarkup;
+        document.getElementById('deepseekKey').value = data.data.deepseek_api_key || '';
+        document.getElementById('phoneNumber').value = data.data.phone_number || '89233720975';
+    }
+}
+
+function renderStats() {
+    const totalOrders = allOrders.length;
+    const totalRevenue = allOrders.reduce((sum, o) => sum + (parseFloat(o.total) || 0), 0);
+    const newOrders = allOrders.filter(o => o.status === '🟡 Новый').length;
+    
+    document.getElementById('stats').innerHTML = `
+        <div class="stat-card"><h2>${totalOrders}</h2><p>Всего заказов</p></div>
+        <div class="stat-card"><h2>${totalRevenue} ₽</h2><p>Выручка</p></div>
+        <div class="stat-card"><h2>${newOrders}</h2><p>Новых заказов</p></div>
+        <div class="stat-card"><h2>${currentMarkup}%</h2><p>Наценка</p></div>
+    `;
+}
+
+function renderOrdersTable() {
+    const container = document.getElementById('ordersTable');
+    if (!allOrders.length) {
+        container.innerHTML = '<p>Нет заказов</p>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <table>
+            <thead><tr><th>№</th><th>Клиент</th><th>Товары</th><th>Сумма</th><th>Статус</th><th>Трек</th><th></th></tr></thead>
+            <tbody>
+                ${allOrders.map((o, idx) => `
+                    <tr>
+                        <td>${o.orderNumber}<br><small>${o.date}</small></td>
+                        <td>${o.clientName}<br><small>${o.clientEmail}</small></td>
+                        <td style="max-width:200px">${o.products}</td>
+                        <td>${o.total} ₽</td>
+                        <td>
+                            <select class="status-select" onchange="updateStatus('${o.orderNumber}', this.value)">
+                                <option ${o.status === '🟡 Новый' ? 'selected' : ''}>🟡 Новый</option>
+                                <option ${o.status === '🟢 Оплачен' ? 'selected' : ''}>🟢 Оплачен</option>
+                                <option ${o.status === '📦 Отправлен' ? 'selected' : ''}>📦 Отправлен</option>
+                                <option ${o.status === '✅ Доставлен' ? 'selected' : ''}>✅ Доставлен</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="track-input" id="track_${idx}" value="${o.tracking || ''}" placeholder="Трек"></td>
+                        <td><button class="btn-secondary" onclick="saveTracking('${o.orderNumber}', ${idx})">💾</button></td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+async function updateStatus(orderNumber, newStatus) {
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updateOrderStatus', orderNumber, newStatus })
+    });
+    await loadOrders();
+    renderOrdersTable();
+}
+
+async function saveTracking(orderNumber, idx) {
+    const tracking = document.getElementById(`track_${idx}`).value;
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updateTracking', orderNumber, trackingNumber: tracking })
+    });
+    alert('Трек сохранён');
+}
+
+async function saveMarkup() {
+    const markup = document.getElementById('markupInput').value;
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'saveSettings', settings: { markup } })
+    });
+    currentMarkup = parseInt(markup);
+    renderStats();
+    alert('Наценка сохранена');
+}
+
+async function saveDeepSeekKey() {
+    const key = document.getElementById('deepseekKey').value;
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'saveSettings', settings: { deepseek_api_key: key } })
+    });
+    alert('Ключ DeepSeek сохранён');
+}
+
+async function savePhoneNumber() {
+    const phone = document.getElementById('phoneNumber').value;
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'saveSettings', settings: { phone_number: phone } })
+    });
+    alert('Номер телефона сохранён');
+}
+
+async function uploadCSV() {
+    const file = document.getElementById('csvFile').files[0];
+    if (!file) {
+        alert('Выберите CSV файл');
+        return;
+    }
+    
+    const text = await file.text();
+    const lines = text.split('\n');
+    const headers = lines[0].split(';').map(h => h.replace(/["']/g, '').trim());
+    
+    const products = [];
+    for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(';');
+        if (values.length < 3) continue;
+        const product = {};
+        headers.forEach((h, idx) => { product[h] = values[idx]?.replace(/["']/g, '').trim(); });
+        products.push(product);
+    }
+    
+    await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'uploadProducts', products })
+    });
+    
+    alert(`Загружено ${products.length} товаров`);
+}
+
+function downloadFeed() {
+    alert('Функция скачивания фида работает через скрипт. Для простоты скачайте CSV из вкладки "Фид" после загрузки товаров');
+    // Полная реализация будет через fetch с фильтрацией
+}
+
+function showTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+loadData();
+</script>
+</body>
+</html>

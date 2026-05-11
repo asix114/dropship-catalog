@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORIA — личный кабинет</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
+        .container{max-width:1400px;margin:0 auto;padding:0 30px}
+        .header{padding:20px 0;border-bottom:1px solid #ff3366;background:#0a0a0a;position:sticky;top:0;z-index:100}
+        .logo-img{height:80px;display:block;margin:0 auto}
+        .subtitle{text-align:center;font-size:12px;color:#ff3366;margin-top:5px}
+        .nav{display:flex;justify-content:center;gap:40px;margin:20px 0}
+        .nav span{cursor:pointer;font-weight:600}
+        .nav span:hover{color:#ff3366}
+        .card{background:#1a1a24;border-radius:30px;padding:30px;margin:30px 0}
+        input{width:100%;padding:12px;margin:10px 0;border-radius:30px;background:#333;border:none;color:#fff}
+        .btn-primary{background:#ff3366;border:none;width:100%;padding:12px;border-radius:40px;color:#fff;font-weight:600;cursor:pointer}
+        .btn-secondary{background:#333;border:none;width:100%;padding:10px;border-radius:40px;color:#fff;cursor:pointer;margin-top:10px}
+        .order-item{background:#0a0a0a;border-radius:20px;padding:15px;margin-bottom:15px;border-left:3px solid #ff3366}
+        footer{text-align:center;padding:40px;color:#666}
+        hr{border-color:#333;margin:20px 0}
+        .status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px}
+        .status-new{background:#ff9800}
+        .status-paid{background:#4caf50}
+        .status-sent{background:#2196f3}
+        .status-delivered{background:#9c27b0}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <img src="logo.png" alt="VELORIA" class="logo-img" onerror="this.style.display='none'">
+        <div class="subtitle">премиальный бутик</div>
+        <div class="nav">
+            <span onclick="window.location.href='catalog.html'">КАТАЛОГ</span>
+            <span onclick="window.location.href='profile.html'">ЛИЧНЫЙ КАБИНЕТ</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="profileContent" class="card">Загрузка...</div>
+</div>
+
+<footer>© 2025 VELORIA — премиальный бутик</footer>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyd7V0uxXYhtyWCN0_bJdMqWGjKzIToOsw3uYjJ2Id2HxQbmYCOb-cG15eVr4kDO0qw/exec';
+
+let currentUser = JSON.parse(localStorage.getItem('veloria_user'));
+let allOrders = [];
+
+async function loadOrders() {
+    try {
+        const res = await fetch(`${SCRIPT_URL}?action=getOrders`);
+        const data = await res.json();
+        if (data.status === 'success') {
+            allOrders = data.data;
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+function renderProfile() {
+    const container = document.getElementById('profileContent');
+    
+    if (!currentUser) {
+        container.innerHTML = `
+            <h3 style="color:#ff3366">🔐 Вход в личный кабинет</h3>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Пароль">
+            <button class="btn-primary" onclick="login()">ВОЙТИ</button>
+            <hr>
+            <h3 style="color:#ff3366; margin-top:20px">📝 Регистрация</h3>
+            <input type="text" id="regName" placeholder="Имя">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="password" id="regPassword" placeholder="Пароль">
+            <input type="tel" id="regPhone" placeholder="Телефон">
+            <button class="btn-secondary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+        `;
+    } else {
+        const userOrders = allOrders.filter(o => o.clientEmail === currentUser.email);
+        container.innerHTML = `
+            <h3 style="color:#ff3366">👤 ${currentUser.name}</h3>
+            <p>📧 ${currentUser.email}</p>
+            <p>📞 ${currentUser.phone || 'не указан'}</p>
+            <hr>
+            <h4>📦 История заказов (${userOrders.length})</h4>
+            ${userOrders.length ? userOrders.map(o => `
+                <div class="order-item">
+                    <strong>${o.orderNumber}</strong>
+                    <p style="font-size:14px;margin:5px 0">${o.products}</p>
+                    <p>💰 ${o.total} ₽ | 🚚 ${o.delivery || 'не указан'}</p>
+                    <p>Статус: <span class="status status-${o.status === '🟡 Новый' ? 'new' : o.status === '🟢 Оплачен' ? 'paid' : o.status === '📦 Отправлен' ? 'sent' : 'delivered'}">${o.status}</span></p>
+                    ${o.tracking ? `<p>📮 Трек: <strong>${o.tracking}</strong></p>` : ''}
+                    <small>${o.date}</small>
+                </div>
+            `).join('') : '<p>У вас пока нет заказов</p>'}
+            <button class="btn-secondary" onclick="logout()">🚪 ВЫЙТИ</button>
+        `;
+    }
+}
+
+async function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    try {
+        const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'loginUser', email, password })
+        });
+        const data = await res.json();
+        
+        if (data.status === 'success') {
+            currentUser = data.data;
+            localStorage.setItem('veloria_user', JSON.stringify(currentUser));
+            renderProfile();
+        } else {
+            alert('Неверный email или пароль');
+        }
+    } catch(e) {
+        alert('Ошибка входа');
+    }
+}
+
+async function register() {
+    const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+    const phone = document.getElementById('regPhone').value;
+    
+    if (!name || !email || !password) {
+        alert('Заполните имя, email и пароль');
+        return;
+    }
+    
+    try {
+        const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'registerUser', email, password, name, phone })
+        });
+        const data = await res.json();
+        
+        if (data.status === 'success') {
+            alert('Регистрация успешна! Теперь войдите');
+            renderProfile();
+        } else {
+            alert(data.message || 'Ошибка регистрации');
+        }
+    } catch(e) {
+        alert('Ошибка регистрации');
+    }
+}
+
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('veloria_user');
+    renderProfile();
+}
+
+loadOrders().then(() => renderProfile());
+</script>
+</body>
+</html>

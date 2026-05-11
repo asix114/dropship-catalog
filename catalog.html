@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORIA — каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff}
+        .container{max-width:1400px;margin:0 auto;padding:0 30px}
+        .header{padding:20px 0;border-bottom:1px solid #ff3366;background:#0a0a0a;position:sticky;top:0;z-index:100}
+        .logo-img{height:80px;display:block;margin:0 auto}
+        .subtitle{text-align:center;font-size:12px;color:#ff3366;margin-top:5px}
+        .nav{display:flex;justify-content:center;gap:40px;margin:20px 0}
+        .nav span{cursor:pointer;font-weight:600}
+        .nav span:hover{color:#ff3366}
+        .categories{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:30px 0}
+        .cat-btn{background:#1a1a24;border:1px solid #ff3366;padding:8px 20px;border-radius:40px;cursor:pointer;transition:0.2s}
+        .cat-btn:hover,.cat-btn.active{background:#ff3366;color:#fff}
+        .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px;margin:30px 0}
+        .product-card{background:#1a1a24;border-radius:20px;padding:20px;text-align:center}
+        .product-img{height:150px;display:flex;align-items:center;justify-content:center}
+        .product-img img{max-height:120px;max-width:100%}
+        .product-title{font-size:18px;font-weight:600;margin:15px 0 5px}
+        .product-price{font-size:24px;color:#ff3366;font-weight:700}
+        .btn-primary{background:#ff3366;border:none;width:100%;padding:12px;border-radius:40px;color:#fff;font-weight:600;cursor:pointer}
+        .btn-secondary{background:#333;border:none;width:100%;padding:10px;border-radius:40px;color:#fff;cursor:pointer;margin-top:10px}
+        .cart-icon{position:fixed;bottom:30px;right:30px;background:#ff3366;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200}
+        .cart-count{position:absolute;top:-5px;right:-5px;background:#fff;color:#ff3366;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:300;justify-content:center;align-items:center}
+        .modal-content{background:#1a1a24;border-radius:30px;padding:30px;max-width:500px;width:90%}
+        input,select{width:100%;padding:12px;margin:10px 0;border-radius:30px;background:#333;border:none;color:#fff}
+        footer{text-align:center;padding:40px;color:#666}
+        .payment-info{background:#1a1a24;border-radius:20px;padding:20px;margin:20px 0;text-align:center}
+        .payment-number{font-size:28px;color:#ff3366;font-weight:700;margin:10px 0}
+        hr{border-color:#333;margin:20px 0}
+        a{color:#ff3366}
+    </style>
+</head>
+<body>
+
+<div class="cart-icon" onclick="showCart()">🛒<span id="cartCount" class="cart-count">0</span></div>
+
+<div class="header">
+    <div class="container">
+        <img src="logo.png" alt="VELORIA" class="logo-img" onerror="this.style.display='none'">
+        <div class="subtitle">премиальный бутик</div>
+        <div class="nav">
+            <span onclick="window.location.href='catalog.html'">КАТАЛОГ</span>
+            <span onclick="window.location.href='profile.html'">ЛИЧНЫЙ КАБИНЕТ</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="categories" class="categories"></div>
+    <div id="productsGrid" class="product-grid">Загрузка товаров...</div>
+</div>
+
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <h3>🛒 КОРЗИНА</h3>
+        <div id="cartItems"></div>
+        <div id="cartTotal" style="font-weight:700;margin:15px 0"></div>
+        <button class="btn-primary" onclick="showCheckout()">ОФОРМИТЬ</button>
+        <button class="btn-secondary" onclick="closeModal('cartModal')">ЗАКРЫТЬ</button>
+    </div>
+</div>
+
+<div id="checkoutModal" class="modal">
+    <div class="modal-content">
+        <h3>📝 ОФОРМЛЕНИЕ ЗАКАЗА</h3>
+        <input type="text" id="coName" placeholder="Ваше имя *" required>
+        <input type="email" id="coEmail" placeholder="Email *" required>
+        <input type="tel" id="coPhone" placeholder="Телефон">
+        <input type="text" id="coAddress" placeholder="Адрес доставки">
+        <select id="coDelivery">
+            <option>СДЭК</option>
+            <option>Почта России</option>
+            <option>Курьер</option>
+        </select>
+        
+        <div class="payment-info">
+            <i class="fas fa-mobile-alt" style="font-size:24px;color:#ff3366"></i>
+            <p style="margin:10px 0">Оплата переводом по номеру телефона:</p>
+            <div class="payment-number">+7 923 372-09-75</div>
+            <p style="font-size:14px;color:#aaa">Тинькофф Банк (карта дочери)</p>
+            <hr>
+            <p style="font-size:14px;font-weight:bold">⚠️ В комментарии к переводу УКАЖИТЕ НОМЕР ЗАКАЗА — он появится после оформления</p>
+            <p style="font-size:12px;color:#888;margin-top:10px">После перевода нажмите «Я ОПЛАТИЛ» — заказ получит статус «На проверке»</p>
+        </div>
+        
+        <button class="btn-primary" onclick="submitOrder()">Я ОПЛАТИЛ</button>
+        <button class="btn-secondary" onclick="closeModal('checkoutModal')">ОТМЕНА</button>
+    </div>
+</div>
+
+<footer>© 2025 VELORIA — премиальный бутик</footer>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyd7V0uxXYhtyWCN0_bJdMqWGjKzIToOsw3uYjJ2Id2HxQbmYCOb-cG15eVr4kDO0qw/exec';
+
+let products = [];
+let categories = new Set();
+let cart = JSON.parse(localStorage.getItem('veloria_cart')) || [];
+let currentUser = JSON.parse(localStorage.getItem('veloria_user')) || null;
+let currentMarkup = 100;
+
+async function loadData() {
+    try {
+        const res = await fetch(`${SCRIPT_URL}?action=getProducts`);
+        const data = await res.json();
+        
+        if (data.status === 'success') {
+            products = data.data;
+            categories.clear();
+            categories.add('все');
+            products.forEach(p => {
+                let cat = p.categoryPath || p.category || 'Другое';
+                if (cat.includes('/')) cat = cat.split('/')[0];
+                p.category = cat;
+                categories.add(cat);
+            });
+            renderCategories();
+            renderProducts();
+        }
+        
+        const settingsRes = await fetch(`${SCRIPT_URL}?action=getSettings`);
+        const settingsData = await settingsRes.json();
+        if (settingsData.status === 'success') {
+            currentMarkup = parseInt(settingsData.data.markup) || 100;
+        }
+        
+        updateCartCount();
+    } catch(e) {
+        console.error(e);
+        document.getElementById('productsGrid').innerHTML = '<p>Ошибка загрузки. Проверьте интернет.</p>';
+    }
+}
+
+function renderCategories() {
+    const container = document.getElementById('categories');
+    container.innerHTML = Array.from(categories).map(cat => `
+        <span class="cat-btn" onclick="filterCategory('${cat}')">${cat}</span>
+    `).join('');
+}
+
+let activeCategory = 'все';
+
+function filterCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderProducts();
+}
+
+function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    let filtered = products;
+    if (activeCategory !== 'все') {
+        filtered = products.filter(p => p.category === activeCategory);
+    }
+    
+    if (!filtered.length) {
+        grid.innerHTML = '<p>Нет товаров в этой категории</p>';
+        return;
+    }
+    
+    grid.innerHTML = filtered.map(p => {
+        const wholesale = parseFloat(p.wholePrice) || 0;
+        const retail = Math.round(wholesale * (1 + currentMarkup / 100));
+        return `
+            <div class="product-card">
+                <div class="product-img"><img src="${p.images?.split(' ')[0] || ''}" onerror="this.src='https://placehold.co/200x200/2a2a35/ff3366?text=VELORIA'"></div>
+                <div class="product-title">${p.productName || 'Товар'}</div>
+                <div class="product-price">${retail} ₽</div>
+                <button class="btn-primary" onclick="addToCart('${p.aID}','${p.productName}',${retail})">В КОРЗИНУ</button>
+            </div>
+        `;
+    }).join('');
+}
+
+function addToCart(id, name, price) {
+    const existing = cart.find(i => i.id === id);
+    if (existing) existing.quantity++;
+    else cart.push({ id, name, price, quantity: 1 });
+    localStorage.setItem('veloria_cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`✅ ${name} добавлен в корзину`);
+}
+
+function updateCartCount() {
+    document.getElementById('cartCount').innerText = cart.reduce((s,i) => s + i.quantity, 0);
+}
+
+function showCart() {
+    const container = document.getElementById('cartItems');
+    if (!cart.length) {
+        container.innerHTML = '<p>Корзина пуста</p>';
+        document.getElementById('cartTotal').innerHTML = '';
+    } else {
+        container.innerHTML = cart.map(i => `<div>${i.name} x${i.quantity} = ${i.price * i.quantity}₽</div>`).join('');
+        document.getElementById('cartTotal').innerHTML = `Итого: ${cart.reduce((s,i) => s + i.price * i.quantity, 0)} ₽`;
+    }
+    document.getElementById('cartModal').style.display = 'flex';
+}
+
+function showCheckout() {
+    if (!currentUser) {
+        alert('Для оформления заказа войдите в личный кабинет');
+        window.location.href = 'profile.html';
+        return;
+    }
+    closeModal('cartModal');
+    document.getElementById('checkoutModal').style.display = 'flex';
+}
+
+async function submitOrder() {
+    const name = document.getElementById('coName').value;
+    const email = document.getElementById('coEmail').value;
+    const phone = document.getElementById('coPhone').value;
+    const address = document.getElementById('coAddress').value;
+    const delivery = document.getElementById('coDelivery').value;
+    
+    if (!name || !email) {
+        alert('Заполните имя и email');
+        return;
+    }
+    
+    const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+    const productsList = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+    const orderNumber = 'ORD-' + Date.now();
+    
+    const order = {
+        action: 'createOrder',
+        orderNumber: orderNumber,
+        clientName: name,
+        clientEmail: email,
+        clientPhone: phone,
+        products: productsList,
+        total: total,
+        delivery: delivery,
+        address: address
+    };
+    
+    try {
+        const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+        });
+        
+        alert(`✅ Заказ ${orderNumber} оформлен!\n\n💳 Оплатите: +7 923 372-09-75 (Тинькофф)\nВ комментарии укажите: ${orderNumber}\n\nПосле оплаты мы подтвердим заказ на email`);
+        
+        cart = [];
+        localStorage.setItem('veloria_cart', JSON.stringify(cart));
+        updateCartCount();
+        closeModal('checkoutModal');
+        
+        document.getElementById('coName').value = '';
+        document.getElementById('coEmail').value = '';
+        document.getElementById('coPhone').value = '';
+        document.getElementById('coAddress').value = '';
+    } catch(e) {
+        alert('Ошибка при оформлении заказа');
+    }
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+currentUser = JSON.parse(localStorage.getItem('veloria_user'));
+loadData();
+</script>
+</body>
+</html>
