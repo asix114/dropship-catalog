@@ -3,176 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VELORIA — Премиальный дропшиппинг</title>
+    <title>VELORIA — премиальный бутик</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fefaf8; color: #1a0f14; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        .site-header { background: linear-gradient(135deg, #241018 0%, #160a12 100%); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
-        .header-flex { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-        .logo h2 { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, #e6b8cc); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .logo p { font-size: 0.8rem; opacity: 0.8; }
-        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-        .nav-links a { color: #f0e0e6; text-decoration: none; font-weight: 500; cursor: pointer; }
-        .cart-icon { position: relative; cursor: pointer; }
-        .cart-count { position: absolute; top: -8px; right: -12px; background: #c85c7e; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
-        .btn { background: linear-gradient(135deg, #c85c7e, #a23658); color: white; padding: 8px 16px; border-radius: 50px; border: none; cursor: pointer; font-weight: 600; }
-        .btn-outline { background: transparent; border: 2px solid #c85c7e; color: #c85c7e; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; margin: 40px 0; }
-        .product-card { background: white; border-radius: 24px; padding: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.2s; }
-        .product-card:hover { transform: translateY(-4px); }
-        .product-img { height: 180px; display: flex; align-items: center; justify-content: center; }
-        .product-img img { max-height: 150px; max-width: 100%; }
-        .product-price { font-size: 1.3rem; font-weight: 700; color: #c85c7e; margin: 10px 0; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; border-radius: 32px; padding: 30px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #f0dbd2; }
-        .tab { padding: 8px 20px; cursor: pointer; border-radius: 30px; }
-        .tab.active { background: #c85c7e; color: white; }
-        .admin-table { overflow-x: auto; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+        
+        /* header */
+        .header { padding: 25px 0 20px; border-bottom: 1px solid rgba(255,51,102,0.3); background: rgba(10,10,10,0.95); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 2.3rem; font-weight: 800; background: linear-gradient(135deg, #fff, #ff3366); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; }
+        .subtitle { text-align: center; font-size: 0.7rem; letter-spacing: 4px; color: #ff3366; margin-top: 5px; }
+        .nav { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+        .nav span { cursor: pointer; font-weight: 500; font-size: 0.9rem; transition: 0.2s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
+        .nav span:hover, .nav span.active { color: #ff3366; border-bottom-color: #ff3366; }
+        
+        /* каталог */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin: 50px 0; }
+        .product-card { background: rgba(30,30,40,0.6); backdrop-filter: blur(12px); border-radius: 28px; padding: 20px; transition: 0.3s; border: 1px solid rgba(255,255,255,0.08); text-align: center; }
+        .product-card:hover { transform: translateY(-8px); border-color: rgba(255,51,102,0.5); box-shadow: 0 20px 35px -15px rgba(255,51,102,0.2); }
+        .product-img { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
+        .product-img img { max-height: 160px; max-width: 100%; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3)); }
+        .product-title { font-size: 1.1rem; font-weight: 600; margin: 10px 0; }
+        .product-price { font-size: 1.5rem; font-weight: 800; color: #ff3366; margin: 8px 0; }
+        .btn-primary { background: linear-gradient(135deg, #ff3366, #cc0044); border: none; width: 100%; padding: 12px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { transform: scale(0.98); opacity: 0.9; }
+        .btn-secondary { background: #2a2a35; border: none; width: 100%; padding: 10px; border-radius: 40px; color: white; cursor: pointer; margin-top: 10px; }
+        
+        /* корзина */
+        .cart-icon { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #ff3366, #cc0044); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 200; box-shadow: 0 5px 20px rgba(255,51,102,0.4); }
+        .cart-count { position: absolute; top: -5px; right: -5px; background: white; color: #cc0044; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; }
+        
+        /* модалки */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 300; justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a24; border-radius: 40px; padding: 30px; max-width: 550px; width: 90%; border: 1px solid rgba(255,51,102,0.3); max-height: 85vh; overflow-y: auto; }
+        .modal-content h3 { color: #ff3366; margin-bottom: 20px; }
+        input, select, textarea { width: 100%; padding: 12px 16px; margin: 8px 0; border-radius: 30px; border: 1px solid #333; background: #2a2a35; color: white; font-size: 0.9rem; outline: none; }
+        
+        /* CRM админка */
+        .admin-table { overflow-x: auto; margin-top: 20px; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #f0dbd2; }
-        .status-select { padding: 5px 10px; border-radius: 20px; background: #faf0ec; border: none; }
-        footer { background: #0f0c0e; color: #aa9aa2; padding: 40px 0; margin-top: 50px; text-align: center; }
-        @media (max-width: 700px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
+        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #333; }
+        th { color: #ff3366; font-weight: 600; }
+        .status-select { padding: 6px 12px; border-radius: 20px; background: #2a2a35; color: white; border: 1px solid #ff3366; cursor: pointer; }
+        .track-input { background: #2a2a35; border: 1px solid #555; padding: 6px 10px; border-radius: 20px; color: white; width: 120px; }
+        
+        /* профайл */
+        .profile-card { background: rgba(30,30,40,0.6); border-radius: 28px; padding: 30px; margin: 30px 0; }
+        .order-history-item { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #ff3366; }
+        
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; color: #888; font-size: 0.8rem; }
+        @media (max-width: 700px) { .container { padding: 0 20px; } .nav { gap: 20px; } .logo { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container header-flex">
-        <div class="logo">
-            <h2>VELORIA</h2>
-            <p>где страсть обретает форму</p>
-        </div>
-        <div class="nav-links">
-            <a onclick="showSection('catalog')">Каталог</a>
-            <a onclick="showSection('profile')">Личный кабинет</a>
-            <a onclick="showSection('admin')" id="adminLink" style="display:none;">📊 Админ CRM</a>
-            <a class="cart-icon" onclick="showCart()"><i class="fas fa-shopping-cart"></i><span id="cartCount" class="cart-count">0</span></a>
-            <a onclick="logout()" id="logoutBtn" style="display:none;">Выйти</a>
+<div class="cart-icon" onclick="showCart()">🛒 <span id="cartCount" class="cart-count">0</span></div>
+
+<div class="header">
+    <div class="container">
+        <div class="logo">VELORIA</div>
+        <div class="subtitle">где страсть обретает форму</div>
+        <div class="nav" id="mainNav">
+            <span class="active" onclick="switchSection('catalog')">КАТАЛОГ</span>
+            <span onclick="switchSection('profile')">ЛИЧНЫЙ КАБИНЕТ</span>
+            <span onclick="switchSection('admin')">CRM АДМИН</span>
         </div>
     </div>
-</header>
+</div>
 
 <div class="container">
-    <!-- Каталог -->
+    <!-- Секция каталога -->
     <div id="catalogSection">
-        <div class="product-grid" id="productGrid">Загрузка...</div>
+        <div class="product-grid" id="catalogGrid">Загрузка каталога...</div>
     </div>
 
-    <!-- Личный кабинет клиента -->
+    <!-- Секция личного кабинета -->
     <div id="profileSection" style="display:none;">
-        <h2>📋 Мои заказы</h2>
-        <div id="userOrders" style="margin-top: 20px;"></div>
+        <div id="profileContent" class="profile-card"></div>
     </div>
 
-    <!-- Админ панель (CRM) -->
+    <!-- Секция админ-панели -->
     <div id="adminSection" style="display:none;">
-        <div class="tabs">
-            <div class="tab active" onclick="switchAdminTab('orders')">📦 Заказы</div>
-            <div class="tab" onclick="switchAdminTab('clients')">👥 Клиенты</div>
-        </div>
+        <h3 style="color:#ff3366; margin-bottom:20px;">📊 Управление заказами</h3>
         <div id="adminOrdersPanel" class="admin-table"></div>
-        <div id="adminClientsPanel" style="display:none;" class="admin-table"></div>
+        <div style="text-align:center; margin-top:30px;">
+            <button class="btn-primary" onclick="window.open('https://docs.google.com/spreadsheets/d/1EpTByX-nY09VwUc14x5N6m3A0xrFDuu8lHRSYpXb2Gs', '_blank')">📋 ОТКРЫТЬ GOOGLE ТАБЛИЦУ</button>
+        </div>
     </div>
 </div>
 
 <!-- Модалка корзины -->
 <div id="cartModal" class="modal">
     <div class="modal-content">
-        <h2>🛒 Корзина</h2>
+        <h3>🛒 КОРЗИНА</h3>
         <div id="cartItems"></div>
-        <div id="cartTotal" style="font-weight:700; margin:15px 0;"></div>
-        <button class="btn" onclick="checkout()">Оформить заказ</button>
-        <button class="btn-outline" onclick="closeModal('cartModal')">Закрыть</button>
+        <div id="cartTotal" style="font-weight:bold; margin:15px 0;"></div>
+        <button class="btn-primary" onclick="checkout()">ОФОРМИТЬ ЗАКАЗ</button>
+        <button class="btn-secondary" onclick="closeModal('cartModal')">ЗАКРЫТЬ</button>
     </div>
 </div>
 
-<!-- Модалка оформления заказа -->
+<!-- Модалка оформления -->
 <div id="checkoutModal" class="modal">
     <div class="modal-content">
-        <h2>📝 Оформление заказа</h2>
-        <input type="text" id="checkoutName" placeholder="Ваше имя" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
-        <input type="tel" id="checkoutPhone" placeholder="Телефон" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
-        <input type="text" id="checkoutAddress" placeholder="Адрес доставки" style="width:100%; padding:10px; margin:8px 0; border-radius:30px; border:1px solid #ddd;">
-        <select id="checkoutDelivery" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
+        <h3>📝 ОФОРМЛЕНИЕ ЗАКАЗА</h3>
+        <input type="text" id="coName" placeholder="Ваше имя">
+        <input type="tel" id="coPhone" placeholder="Телефон (WhatsApp)">
+        <input type="text" id="coAddress" placeholder="Адрес доставки">
+        <select id="coDelivery">
             <option value="СДЭК">СДЭК (350₽)</option>
             <option value="Почта России">Почта России (250₽)</option>
             <option value="Курьер МСК">Курьер по Москве (500₽)</option>
         </select>
-        <button class="btn" onclick="submitOrder()">✅ Подтвердить заказ</button>
-        <button class="btn-outline" onclick="closeModal('checkoutModal')">Назад</button>
+        <button class="btn-primary" onclick="submitOrder()">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+        <button class="btn-secondary" onclick="closeModal('checkoutModal')">НАЗАД</button>
     </div>
 </div>
 
-<footer>
-    <div class="container">
-        <p>© 2025 VELORIA — Дропшиппинг от 1 шт. Ваша прибыль — ваша наценка.</p>
-        <p>WhatsApp менеджера: +7-933-331-57-87</p>
-    </div>
-</footer>
+<footer>© 2025 VELORIA — премиальный дропшиппинг. WhatsApp менеджера: +7-933-331-57-87</footer>
 
 <script>
-    // ==================== ВАШ URL ИЗ GOOGLE APPS SCRIPT ====================
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoZjZVQyHelOk7O4a7OKMk99cu-ILeS4xAk6IEzw-IUDwvC8JbQ-GUuDd45VF1cSz/exec';
+    // ==================== НАСТРОЙКИ ====================
+    const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbwoZjZVQyHelOk7O4a7OKMk99cu-ILeS4xAk6IEzw-IUDwvC8JbQ-GUuDd45VF1cSz/exec';
     
-    // ==================== ТОВАРЫ (временные, для демо) ====================
-    const products = [
-        { id: 1, name: "Вибратор Elegance", price: 1250, image: "https://via.placeholder.com/150x150?text=VELORIA" },
-        { id: 2, name: "Смазка Silky Love 100ml", price: 450, image: "https://via.placeholder.com/150x150?text=VELORIA" },
-        { id: 3, name: "Массажер Butterfly", price: 1890, image: "https://via.placeholder.com/150x150?text=VELORIA" },
-        { id: 4, name: "Наручники Luxury", price: 890, image: "https://via.placeholder.com/150x150?text=VELORIA" },
-        { id: 5, name: "Стимулятор Pearl", price: 2340, image: "https://via.placeholder.com/150x150?text=VELORIA" },
-        { id: 6, name: "Анальная пробка Set", price: 1200, image: "https://via.placeholder.com/150x150?text=VELORIA" }
-    ];
-    
-    // Корзина
+    let products = [];
     let cart = JSON.parse(localStorage.getItem('veloria_cart')) || [];
     let currentUser = JSON.parse(localStorage.getItem('veloria_user')) || null;
-    const ADMIN_PASSWORD = 'admin123';
+    let allOrders = JSON.parse(localStorage.getItem('veloria_orders')) || [];
     
-    // Отображение каталога
-    function renderCatalog() {
-        const grid = document.getElementById('productGrid');
-        if(!grid) return;
-        grid.innerHTML = products.map(p => `
-            <div class="product-card">
-                <div class="product-img"><img src="${p.image}" alt="${p.name}"></div>
-                <h4>${p.name}</h4>
-                <div class="product-price">${p.price} ₽</div>
-                <button class="btn" onclick="addToCart(${p.id})">В корзину</button>
-            </div>
-        `).join('');
+    // ==================== КАТАЛОГ ====================
+    async function loadCatalog() {
+        try {
+            const res = await fetch('catalog.json');
+            const data = await res.json();
+            products = data.products;
+            renderCatalog();
+        } catch(e) {
+            document.getElementById('catalogGrid').innerHTML = '<p>Ошибка загрузки каталога. Проверьте файл catalog.json</p>';
+        }
     }
     
-    function addToCart(productId) {
-        const product = products.find(p => p.id === productId);
-        const existing = cart.find(i => i.id === productId);
+    function renderCatalog() {
+        const grid = document.getElementById('catalogGrid');
+        if(!products.length) { grid.innerHTML = '<p>Товары не найдены</p>'; return; }
+        grid.innerHTML = products.map(p => `
+            <div class="product-card">
+                <div class="product-img"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200x200?text=VELORIA'"></div>
+                <div class="product-title">${p.name}</div>
+                <div class="product-price">${p.price} ₽</div>
+                <button class="btn-primary" onclick="addToCart(${p.id})">В КОРЗИНУ</button>
+            </div>
+        `).join('');
+        updateCartCount();
+    }
+    
+    function addToCart(id) {
+        const p = products.find(p => p.id === id);
+        const existing = cart.find(i => i.id === id);
         if(existing) existing.quantity++;
-        else cart.push({ ...product, quantity: 1 });
+        else cart.push({ ...p, quantity: 1 });
         localStorage.setItem('veloria_cart', JSON.stringify(cart));
         updateCartCount();
-        alert('Товар добавлен в корзину');
+        alert(`✅ ${p.name} добавлен в корзину`);
     }
     
     function updateCartCount() {
-        const count = cart.reduce((s, i) => s + i.quantity, 0);
-        const cartCountSpan = document.getElementById('cartCount');
-        if(cartCountSpan) cartCountSpan.innerText = count;
+        const count = cart.reduce((s,i) => s + i.quantity, 0);
+        document.getElementById('cartCount').innerText = count;
     }
     
+    // ==================== КОРЗИНА И ЗАКАЗЫ ====================
     function showCart() {
         const container = document.getElementById('cartItems');
-        if(!container) return;
         if(!cart.length) {
             container.innerHTML = '<p>Корзина пуста</p>';
             document.getElementById('cartTotal').innerHTML = '';
         } else {
-            container.innerHTML = cart.map(i => `<div class="cart-item">${i.name} x${i.quantity} = ${i.price * i.quantity}₽</div>`).join('');
-            const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+            container.innerHTML = cart.map(i => `<div style="margin:8px 0;">${i.name} x${i.quantity} = ${i.price * i.quantity}₽</div>`).join('');
+            const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
             document.getElementById('cartTotal').innerHTML = `Итого: ${total} ₽`;
         }
         document.getElementById('cartModal').style.display = 'flex';
@@ -180,8 +190,8 @@
     
     function checkout() {
         if(!currentUser) {
-            alert('Для оформления заказа войдите или зарегистрируйтесь в личном кабинете');
-            showSection('profile');
+            alert('Пожалуйста, войдите в личный кабинет');
+            switchSection('profile');
             return;
         }
         closeModal('cartModal');
@@ -189,108 +199,96 @@
     }
     
     async function submitOrder() {
-        const name = document.getElementById('checkoutName').value;
-        const phone = document.getElementById('checkoutPhone').value;
-        const address = document.getElementById('checkoutAddress').value;
-        const delivery = document.getElementById('checkoutDelivery').value;
+        const name = document.getElementById('coName').value;
+        const phone = document.getElementById('coPhone').value;
+        const address = document.getElementById('coAddress').value;
+        const delivery = document.getElementById('coDelivery').value;
         
         if(!name || !phone || !address) {
             alert('Заполните все поля');
             return;
         }
         
-        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-        const productsText = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
-        const orderNumber = 'ORD-' + Date.now();
+        const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+        const items = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+        const orderNum = 'ORD-' + Date.now();
+        const newOrder = {
+            number: orderNum,
+            clientName: name,
+            clientPhone: phone,
+            products: items,
+            total: total,
+            status: '🟡 Новый',
+            tracking: '',
+            delivery: delivery,
+            address: address,
+            date: new Date().toLocaleString()
+        };
         
-        // Отправляем данные в Google Таблицу
-        try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'order',
-                    orderNumber: orderNumber,
-                    clientName: name,
-                    clientPhone: phone,
-                    products: productsText,
-                    total: total,
-                    status: 'Новый',
-                    deliveryAddress: address,
-                    deliveryMethod: delivery
-                })
-            });
-            
-            // Также сохраняем клиента
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'client',
-                    clientName: name,
-                    clientPhone: phone,
-                    clientEmail: ''
-                })
-            });
-            
-            alert(`Заказ ${orderNumber} оформлен! Менеджер свяжется с вами.`);
-            cart = [];
-            localStorage.setItem('veloria_cart', JSON.stringify(cart));
-            updateCartCount();
-            closeModal('checkoutModal');
-            
-            // Сохраняем пользователя в localStorage
-            if(!currentUser) {
-                currentUser = { name, phone };
-                localStorage.setItem('veloria_user', JSON.stringify(currentUser));
-                document.getElementById('logoutBtn').style.display = 'inline';
-            }
-            
-        } catch(e) {
-            alert('Ошибка оформления. Заказ сохранён локально, менеджер свяжется с вами.');
-            console.error(e);
+        allOrders.unshift(newOrder);
+        localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
+        
+        // Отправка в Google
+        await fetch(GOOGLE_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'order', clientName: name, clientPhone: phone, products: items, total: total, deliveryAddress: address }) });
+        await fetch(GOOGLE_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'client', clientName: name, clientPhone: phone }) });
+        
+        alert(`✅ Заказ ${orderNum} оформлен! Менеджер свяжется с вами.`);
+        
+        cart = [];
+        localStorage.setItem('veloria_cart', JSON.stringify(cart));
+        updateCartCount();
+        
+        if(!currentUser) {
+            currentUser = { name, phone };
+            localStorage.setItem('veloria_user', JSON.stringify(currentUser));
         }
+        
+        closeModal('checkoutModal');
+        if(document.getElementById('profileSection').style.display === 'block') renderProfile();
+        if(document.getElementById('adminSection').style.display === 'block') renderAdminOrders();
     }
     
-    // Личный кабинет
-    function showUserOrders() {
-        const container = document.getElementById('userOrders');
-        if(!container) return;
+    // ==================== ЛИЧНЫЙ КАБИНЕТ ====================
+    function renderProfile() {
+        const container = document.getElementById('profileContent');
         if(!currentUser) {
             container.innerHTML = `
-                <div style="padding:20px; text-align:center;">
-                    <h3>Вход в личный кабинет</h3>
-                    <input type="text" id="loginName" placeholder="Ваше имя" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
-                    <input type="tel" id="loginPhone" placeholder="Телефон" style="width:100%; padding:10px; margin:8px 0; border-radius:30px;">
-                    <button class="btn" onclick="login()">Войти</button>
-                    <p style="margin-top:15px; font-size:0.8rem;">При первом входе вы автоматически зарегистрируетесь</p>
-                </div>
+                <h3 style="color:#ff3366;">🔐 Вход в личный кабинет</h3>
+                <input type="text" id="regName" placeholder="Имя">
+                <input type="tel" id="regPhone" placeholder="Телефон">
+                <button class="btn-primary" onclick="register()">ВОЙТИ / ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                <p style="margin-top:20px; font-size:0.8rem; color:#888;">При первом входе вы автоматически зарегистрируетесь</p>
             `;
         } else {
+            const userOrders = allOrders.filter(o => o.clientPhone === currentUser.phone || o.clientName === currentUser.name);
             container.innerHTML = `
-                <div style="padding:20px;">
-                    <p><strong>Имя:</strong> ${currentUser.name}</p>
-                    <p><strong>Телефон:</strong> ${currentUser.phone}</p>
-                    <hr style="margin:15px 0;">
-                    <h3>История заказов</h3>
-                    <p>Заказы будут отображаться здесь после оформления.</p>
-                    <p style="color:#888; font-size:0.8rem;">Все заказы сохраняются в Google Таблице. Для просмотра полной истории обратитесь к менеджеру.</p>
+                <h3 style="color:#ff3366;">👤 ${currentUser.name}</h3>
+                <p>📞 ${currentUser.phone}</p>
+                <hr style="margin:20px 0; border-color:#333;">
+                <h4>📦 История заказов</h4>
+                <div id="userOrdersList">
+                    ${userOrders.length ? userOrders.map(o => `
+                        <div class="order-history-item">
+                            <strong>${o.number}</strong><br>
+                            ${o.products}<br>
+                            💰 ${o.total} ₽ | ${o.delivery}<br>
+                            Статус: ${o.status} ${o.tracking ? `| Трек: ${o.tracking}` : ''}<br>
+                            <small>${o.date}</small>
+                        </div>
+                    `).join('') : '<p>У вас пока нет заказов</p>'}
                 </div>
+                <button class="btn-secondary" onclick="logout()">ВЫЙТИ</button>
             `;
         }
     }
     
-    function login() {
-        const name = document.getElementById('loginName')?.value;
-        const phone = document.getElementById('loginPhone')?.value;
+    function register() {
+        const name = document.getElementById('regName')?.value;
+        const phone = document.getElementById('regPhone')?.value;
         if(name && phone) {
             currentUser = { name, phone };
             localStorage.setItem('veloria_user', JSON.stringify(currentUser));
-            document.getElementById('logoutBtn').style.display = 'inline';
-            showSection('profile');
-            showUserOrders();
+            renderProfile();
         } else {
             alert('Введите имя и телефон');
         }
@@ -299,102 +297,101 @@
     function logout() {
         currentUser = null;
         localStorage.removeItem('veloria_user');
-        document.getElementById('logoutBtn').style.display = 'none';
-        showSection('catalog');
-        alert('Вы вышли из личного кабинета');
+        renderProfile();
     }
     
-    // Админ панель (CRM)
-    function showAdminLogin() {
-        const pwd = prompt('Введите пароль администратора:');
-        if(pwd === ADMIN_PASSWORD) {
-            localStorage.setItem('veloria_admin', 'true');
-            document.getElementById('adminLink').style.display = 'inline';
-            showSection('admin');
-        } else if(pwd !== null) {
-            alert('Неверный пароль');
+    // ==================== АДМИН-ПАНЕЛЬ CRM ====================
+    function renderAdminOrders() {
+        const container = document.getElementById('adminOrdersPanel');
+        if(!allOrders.length) {
+            container.innerHTML = '<p>Заказов пока нет</p>';
+            return;
         }
+        container.innerHTML = `
+            <table>
+                <thead><tr><th>№ заказа</th><th>Клиент</th><th>Товары</th><th>Сумма</th><th>Статус</th><th>Трек-номер</th><th>Действие</th></tr></thead>
+                <tbody>
+                    ${allOrders.map((o, idx) => `
+                        <tr>
+                            <td>${o.number}</td>
+                            <td>${o.clientName}<br><small>${o.clientPhone}</small></td>
+                            <td style="max-width:200px;">${o.products}</td>
+                            <td>${o.total} ₽</td>
+                            <td>
+                                <select class="status-select" onchange="updateOrderStatus(${idx}, this.value)">
+                                    <option ${o.status === '🟡 Новый' ? 'selected' : ''}>🟡 Новый</option>
+                                    <option ${o.status === '🟢 Оплачен' ? 'selected' : ''}>🟢 Оплачен</option>
+                                    <option ${o.status === '📦 Отправлен' ? 'selected' : ''}>📦 Отправлен</option>
+                                    <option ${o.status === '✅ Доставлен' ? 'selected' : ''}>✅ Доставлен</option>
+                                </select>
+                            </td>
+                            <td><input type="text" class="track-input" id="track_${idx}" value="${o.tracking || ''}" placeholder="Трек-номер"></td>
+                            <td><button class="btn-primary" style="padding:6px 12px;" onclick="saveTracking(${idx})">💾</button></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
     }
     
-    function showAdminPanel() {
-        // Показываем заглушку для админки
-        document.getElementById('adminOrdersPanel').innerHTML = `
-            <div style="padding:20px; text-align:center;">
-                <p>📊 Админ-панель в разработке.</p>
-                <p>Все заказы и клиенты уже сохраняются в вашу Google Таблицу:</p>
-                <p><a href="https://docs.google.com/spreadsheets/d/1EpTByX-nY09VwUc14x5N6m3A0xrFDuu8lHRSYpXb2Gs" target="_blank">📋 Открыть VELORIA CRM</a></p>
-                <p style="margin-top:20px; font-size:0.8rem;">Вы можете управлять заказами, менять статусы и отслеживать финансы прямо в таблице.</p>
-            </div>
-        `;
-        document.getElementById('adminClientsPanel').innerHTML = `
-            <div style="padding:20px; text-align:center;">
-                <p>👥 Все клиенты автоматически попадают в лист "Клиенты" вашей Google Таблицы.</p>
-                <p><a href="https://docs.google.com/spreadsheets/d/1EpTByX-nY09VwUc14x5N6m3A0xrFDuu8lHRSYpXb2Gs" target="_blank">📋 Открыть CRM</a></p>
-            </div>
-        `;
-    }
+    window.updateOrderStatus = function(idx, newStatus) {
+        allOrders[idx].status = newStatus;
+        localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
+        renderAdminOrders();
+    };
     
-    // Навигация
-    function showSection(section) {
+    window.saveTracking = function(idx) {
+        const trackInput = document.getElementById(`track_${idx}`);
+        if(trackInput) {
+            allOrders[idx].tracking = trackInput.value;
+            localStorage.setItem('veloria_orders', JSON.stringify(allOrders));
+            alert('Трек-номер сохранён');
+        }
+    };
+    
+    // ==================== НАВИГАЦИЯ ====================
+    function switchSection(section) {
         document.getElementById('catalogSection').style.display = section === 'catalog' ? 'block' : 'none';
         document.getElementById('profileSection').style.display = section === 'profile' ? 'block' : 'none';
         document.getElementById('adminSection').style.display = section === 'admin' ? 'block' : 'none';
         
-        if(section === 'profile') showUserOrders();
-        if(section === 'admin') showAdminPanel();
-    }
-    
-    function switchAdminTab(tab) {
-        document.getElementById('adminOrdersPanel').style.display = tab === 'orders' ? 'block' : 'none';
-        document.getElementById('adminClientsPanel').style.display = tab === 'clients' ? 'block' : 'none';
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach((t, i) => {
-            if((tab === 'orders' && i === 0) || (tab === 'clients' && i === 1)) {
-                t.classList.add('active');
+        const navSpans = document.querySelectorAll('#mainNav span');
+        navSpans.forEach(span => span.classList.remove('active'));
+        if(section === 'catalog') navSpans[0].classList.add('active');
+        if(section === 'profile') navSpans[1].classList.add('active');
+        if(section === 'admin') navSpans[2].classList.add('active');
+        
+        if(section === 'profile') renderProfile();
+        if(section === 'admin') {
+            const isAdmin = localStorage.getItem('veloria_admin');
+            if(isAdmin === 'true') {
+                renderAdminOrders();
             } else {
-                t.classList.remove('active');
+                const pwd = prompt('Введите пароль администратора VELORIA:');
+                if(pwd === 'admin123') {
+                    localStorage.setItem('veloria_admin', 'true');
+                    renderAdminOrders();
+                } else if(pwd !== null) {
+                    alert('Неверный пароль');
+                    switchSection('catalog');
+                }
             }
-        });
+        }
     }
     
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
-    // Инициализация
-    renderCatalog();
-    updateCartCount();
-    
-    // Проверяем, есть ли админский доступ
-    if(localStorage.getItem('veloria_admin') === 'true') {
-        document.getElementById('adminLink').style.display = 'inline';
-    }
-    if(currentUser) {
-        document.getElementById('logoutBtn').style.display = 'inline';
-    }
-    
-    // Привязываем функции к окну
-    window.showSection = showSection;
-    window.showCart = showCart;
+    // ==================== ЗАГРУЗКА ====================
+    loadCatalog();
+    if(currentUser) document.getElementById('profileContent') && renderProfile();
+    window.switchSection = switchSection;
     window.addToCart = addToCart;
+    window.showCart = showCart;
     window.checkout = checkout;
     window.submitOrder = submitOrder;
     window.closeModal = closeModal;
-    window.switchAdminTab = switchAdminTab;
+    window.register = register;
     window.logout = logout;
-    window.login = login;
-    window.showAdminLogin = showAdminLogin;
-    
-    // Обработчик для админки (если кликнуть по ссылке)
-    document.getElementById('adminLink')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        const isAdmin = localStorage.getItem('veloria_admin');
-        if(isAdmin === 'true') {
-            showSection('admin');
-        } else {
-            showAdminLogin();
-        }
-    });
 </script>
 </body>
 </html>
